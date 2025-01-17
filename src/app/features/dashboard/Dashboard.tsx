@@ -17,10 +17,12 @@ const Dashboard = () => {
 
   return (
     <GenericLayout>
-      <GenericLayoutHeader> Dashboard </GenericLayoutHeader>
+      <GenericLayoutHeader> Kap Rewards </GenericLayoutHeader>
       <GenericLayoutNotification>5</GenericLayoutNotification>
-      <GenericLayoutDescription> Your current QA summary and activity </GenericLayoutDescription>
-      <GenericLayoutButton> Export report </GenericLayoutButton>
+      <GenericLayoutDescription> Your current Rewards Portal</GenericLayoutDescription>
+      <GenericLayoutButton>
+        <div className="px-5 py-2 rounded-[20px] bg-blue-500">5 Reward Points</div>
+      </GenericLayoutButton>
       <DashboardHeader />
     </GenericLayout>
   )

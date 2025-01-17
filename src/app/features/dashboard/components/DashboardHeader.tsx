@@ -7,26 +7,6 @@ const tabs = [
     name: "Overview",
     element: <DashboardComp />,
   },
-  {
-    name: "Agent Overview",
-    element: <DashboardComp />,
-  },
-  {
-    name: "Auto QA",
-    element: <DashboardComp />,
-  },
-  {
-    name: "Manual QA",
-    element: <DashboardComp />,
-  },
-  {
-    name: "Skillset",
-    element: <DashboardComp />,
-  },
-  {
-    name: "Leadership",
-    element: <DashboardComp />,
-  },
 ];
 
 const DashboardHeader = () => {

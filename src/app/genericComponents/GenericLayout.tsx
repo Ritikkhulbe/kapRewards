@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import React, { ReactNode } from "react"
 
@@ -73,11 +72,11 @@ export const GenericLayoutButton = ({
   onClick?: () => void
   className?: string
 }) => (
-  <Button
+  <div
     onClick={onClick}
     className={"mt-2 "+className}>
     {children}
-  </Button>
+  </div>
 )
 GenericLayoutButton.displayName = "GenericLayoutButton"
 

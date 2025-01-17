@@ -1,15 +1,10 @@
-
-import { useEffect, useState } from "react"
-import { fetchDashboardDataV3 } from "../fetcher";
 import { ReactECharts, ReactEChartsProps } from "@/app/components/ReactEchart";
+import { SmallCard } from "@/app/genericComponents/GenericCards";
+import SingleBar from "@/app/genericComponents/smallerComponents/SingleBar";
 import { Card } from "@/components/ui/card";
-
-const dashboardFetcherPayload = {
-  "timeline": "LAST_MONTH", 
-  "empId": "0", 
-  "isPrevious": true, 
-  "dsatScore": 0
-}
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 //auto vs manual qa graph
 const option: ReactEChartsProps["option"] | any = {
@@ -24,13 +19,13 @@ const option: ReactEChartsProps["option"] | any = {
       ["Saturday", 2, 6],
     ],
   },
-  title:{
+  title: {
     text: "Auto QA vs Manual QA",
     show: true,
     textStyle: {
-      fontSize: '14px',
-      color: '#68717f',
-      fontWeight: '300',
+      fontSize: "14px",
+      color: "#68717f",
+      fontWeight: "300",
     },
   },
   tooltip: {
@@ -44,7 +39,7 @@ const option: ReactEChartsProps["option"] | any = {
     bottom: 0,
     lineStyle: {
       color: "#fff",
-    }
+    },
   },
   grid: {
     left: "5%",
@@ -61,10 +56,10 @@ const option: ReactEChartsProps["option"] | any = {
       onZero: false,
       lineStyle: {
         width: 2,
-        type: 'dashed',
+        type: "dashed",
         opacity: 0.3,
       },
-    }
+    },
   },
   series: [
     {
@@ -86,50 +81,165 @@ const option: ReactEChartsProps["option"] | any = {
   ],
 };
 
+const Leaderboard = [
+  {
+    name: "Ritik",
+    value: 76,
+  },
+  {
+    name: "Mohit",
+    value: 56,
+  },
+  {
+    name: "Dhananjay",
+    value: 45,
+  },
+  {
+    name: "Rahul",
+    value: 34,
+  },
+  {
+    name: "Raj",
+    value: 23,
+  },
+  {
+    name: "Kavya",
+    value: 12,
+  },
+  {
+    name: "Rajat",
+    value: 1,
+  },
+];
+
+const Leaderboard2 = [
+  {
+    name: "Mohit",
+    value: 76,
+  },
+  {
+    name: "Ritik",
+    value: 45,
+  },
+  {
+    name: "Dhananjay",
+    value: 43,
+  },
+  {
+    name: "Rahul",
+    value: 34,
+  },
+  {
+    name: "Raj",
+    value: 33,
+  },
+  {
+    name: "Kavya",
+    value: 30,
+  },
+  {
+    name: "Rajat",
+    value: 12,
+  },
+];
+
 //channel breakdown graph
 
 const DashboardComp = () => {
-
-  const [graph1Data, setGraph1Data] = useState<any[]>([])
-
-  const Data = [
-    { title: "Chat Ettiquettes", percentage: 92.34 },
-    { title: "Chat Handling", percentage: 88.94 },
-    { title: "Folder Selection", percentage: 55.78 },
-    { title: "Response Accuracy", percentage: 78.92 },
-    { title: "Greetings and Personalization", percentage: 28.45 },
-    { title: "Chat Ettiquettes", percentage: 92.34 },
-    { title: "Chat Handling", percentage: 88.94 },
-    { title: "Folder Selection", percentage: 55.78 },
-    { title: "Response Accuracy", percentage: 78.92 },
-    { title: "Greetings and Personalization", percentage: 28.45 },
-  ]
-
-  const [data, setData] = useState<any>(Data)
-
-  useEffect(() => {
-      setGraph1Data(Data)
-
-    const fetchDashboardData = async () => {
-      const response = await fetchDashboardDataV3(dashboardFetcherPayload);
-      setData(response);
-    }
-
-    fetchDashboardData();
-  }, [])
-
-  useEffect(() => {
-    console.log("Data", data)
-  }, [data])
-  
+  const [currentUser, setCurrentUser] = useState<string>("Ritik");
   return (
     <>
-      
-        <Card className=" font-light text-[14px] text-textsecondary-light h-[50vh] p-3 w-[70%] mr-[1%] bg-primary">
-          <ReactECharts option={option} />
-        </Card>
-    </>
-  )
-}
+      <div className="grid grid-cols-3">
+        <div className="w-full mt-1 col-span-2">
+          <div className="w-full flex justify-between mb-2">
+            <SmallCard
+              title="Total tickets handled"
+              number={"435"}
+              variant="up"
+              percentage={10}
+            />
+            <SmallCard
+              title="Total Successful tickets"
+              number={"243"}
+              variant="up"
+              percentage={14}
+            />
+            <SmallCard
+              title="Total Failed tickets"
+              number={"192"}
+              variant="down"
+              percentage={7}
+            />
+          </div>
+          <Card className=" font-light text-[14px] text-textsecondary-light h-[50vh] p-3 w-full mr-[1%] bg-primary">
+            <ReactECharts option={option} />
+          </Card>
+        </div>
+        <div className="w-full ml-2 mt-1 col-span-1 ">
+          <Card className="w-full h-[100%] bg-white p-4">
+            <span className=" font-bold text-[25px] w-[220%] mb-2">
+              Leaderboard
+            </span>
+            <Tabs defaultValue="Live" className="w-full mt-2">
+              <TabsList>
+                <TabsTrigger
+                  value="Live"
+                  className={
+                    "rounded-l-cs border-fourth border font-semibold text-textsecondary-light px-4text-[16px]"
+                  }
+                >
+                  Live
+                </TabsTrigger>
+                <TabsTrigger
+                  value="Last"
+                  className={
+                    "rounded-r-cs border-fourth border font-semibold text-textsecondary-light px-4  text-[16px]"
+                  }
+                >
+                  Last
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="Live" className="w-full">
+                <div className="flex flex-col w-full overflow-y-scroll justify-between">
+                  {Leaderboard.map((item, index) => (
+                    <div
+                      key={index}
+                      className={cn(
+                        "flex items-center w-full  px-2 pb-1 ",
+                        item.name === currentUser
+                          ? "rounded-[6px] border-textsecondary-light border"
+                          : ""
+                      )}
+                    >
+                      <SingleBar title={item.name} percentage={item.value} />
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
 
-export default DashboardComp
+              <TabsContent value="Last">
+                <div className="flex flex-col w-full overflow-y-scroll justify-between ">
+                  {Leaderboard2.map((item, index) => (
+                    <div
+                      key={index}
+                      className={cn(
+                        "flex items-center w-full  px-2  pb-1",
+                        item.name === currentUser
+                          ? "rounded-[6px] border border-textsecondary-light"
+                          : ""
+                      )}
+                    >
+                      <SingleBar title={item.name} percentage={item.value} />
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+          </Card>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default DashboardComp;
