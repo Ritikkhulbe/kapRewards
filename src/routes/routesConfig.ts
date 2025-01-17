@@ -33,12 +33,6 @@ const routesConfig: RouteConfig[] = [
     title: "Score Card",
     icon: ScoreCardIcon,
   },
-  {
-    path: "/coaching/*",
-    element: CoachingRoutes,
-    title: "Coaching",
-    icon: CoachingIcon,
-  },
 ];
 
 export default routesConfig;

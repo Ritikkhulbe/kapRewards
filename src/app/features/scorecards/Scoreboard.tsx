@@ -1,79 +1,130 @@
-import GenericLayout, { GenericLayoutButton, GenericLayoutDescription, GenericLayoutHeader } from '@/app/genericComponents/GenericLayout'
-import Tile from './components/Tile';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getConfigurationList } from './fetcher';
-import { withPublicUrl } from '@/util';
-
-const formatLastUpdatedTime = (dateTime: string): string => {
-    const date = new Date(dateTime);
-
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
-    const year = date.getFullYear();
-
-    let hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12; // Convert 24-hour to 12-hour format
-
-    return `${day}-${month}-${year} ${hours}:${minutes} ${ampm}`;
-};
-
-const mapDataToHeaders = (item: any) => ({
-    name : item.name,
-    parameters: item["parameter count"],
-    subParameters: item["sub-parameter count"],
-    weightage: item.weightage ||"N/A", // Replace with actual data if available
-    totalZT : item["Total ZTs"] || "N/A", // Replace with actual data if available
-    LastModified: formatLastUpdatedTime(item.lastUpdatedTime),
-    icon: item.id
-});
-
+import GenericLayout, {
+  GenericLayoutDescription,
+  GenericLayoutHeader,
+} from "@/app/genericComponents/GenericLayout";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
 
 const Scoreboard = () => {
-    const [configList, setConfigList] = useState<any[]>([]);  
-    const navigate = useNavigate();
+  const [sla, setSla] = useState(true);
+  const [frt, setFrt] = useState("");
+  const [shop, setShop] = useState(false);
+  const [flights, setFlights] = useState(false);
+  const [food, setFood] = useState(false);
+  const [vacation, setVacation] = useState(false);
 
-    const headers = ["Scorecard Title", "Parameters", "Sub-Parameters", "Weightage", "Total ZTs", "Last Modified",""];
-
-    useEffect(() => {
-        const fetchConfigList = async () => {
-            const response = await getConfigurationList();
-            console.log(response)
-            setConfigList(response.map(mapDataToHeaders));
-        }
-        fetchConfigList();
-    }, []);
-
-    useEffect(() => {
-        console.log(configList)
-    },[configList]) 
-
-    return (
-        <GenericLayout>
-            <GenericLayoutHeader>Score Cards</GenericLayoutHeader>
-            <GenericLayoutDescription>Create and configure scorecards to score conversations based</GenericLayoutDescription>
-            <GenericLayoutButton onClick={()=>navigate(withPublicUrl('/scorecard/new'))}>Create New</GenericLayoutButton>
-            {/* Table Headers */}
-            <div className="flex w-full px-4">
-                {headers.map((header, index) => (
-                    <div
-                        key={index}
-                        className={"flex justify-center first:justify-start w-[15%] first:w-[25%] px-4 py-3 text-center last:border-r-0 font-thin text-sm text-slate-500 first:text-left"}>
-                        {header}
-                    </div>
-                ))}
+  const [csat, setCsat] = useState(false);
+  return (
+    <GenericLayout>
+      <GenericLayoutHeader>Configurations</GenericLayoutHeader>
+      <GenericLayoutDescription>
+        Create and configure rewards to score agents
+      </GenericLayoutDescription>
+      {/* Table Headers */}
+      <div className="grid grid-cols-2 gap-2">
+        <div className="flex flex-col">
+          <Card className="p-4 text-textsecondary text-[25px] font-bold mb-2">
+            Ticket Rules
+            <div className="flex w-full py-2 border-t mt-1">
+              <div className="left  w-[100%]">
+                <div className="text-[20px] text-textsecondary">Within SLA</div>
+                <div className="text-[16px] text-textsecondary-light">
+                  Enable to give a point when ticket is resolved within SLA
+                </div>
+              </div>
+              <div className="flex items-center w-[10%]">
+                <Switch checked={sla} onCheckedChange={() => setSla(!sla)} />
+              </div>
             </div>
+            <div className="flex w-full py-2 ">
+              <div className="left  w-[80%]">
+                <div className="text-[20px] text-textsecondary">
+                  First Response Time
+                </div>
+                <div className="text-[16px] text-textsecondary-light">
+                  Enable to give a point when ticket is responded to within(in
+                  seconds):
+                </div>
+              </div>
+              <div className="flex items-center w-[30%]">
+                <Input value={frt} onChange={(e) => setFrt(e.target.value)} />
+              </div>
+            </div>
+          </Card>
+          <Card className="p-4 text-textsecondary text-[25px] font-bold">
+            Feedback Rules
+            <div className="flex w-full  border-t py-2 mt-1">
+              <div className="left  w-[100%]">
+                <div className="text-[20px] text-textsecondary">
+                  Positive CSAT
+                </div>
+                <div className="text-[16px] text-textsecondary-light">
+                  Enable to give a point when agent receives a positive response
+                </div>
+              </div>
+              <div className="flex items-center w-[10%]">
+                <Switch checked={csat} onCheckedChange={() => setCsat(!csat)} />
+              </div>
+            </div>
+          </Card>
+        </div>
+        <Card className="p-4 text-textsecondary text-[25px] font-bold mb-2">
+          Rewards Rules
+          <div className="flex w-full py-2  border-t mt-1">
+            <div className="left  w-[100%]">
+              <div className="text-[20px] text-textsecondary">Shopping</div>
+              <div className="text-[16px] text-textsecondary-light">
+                Enable for agents to redeem points for shopping
+              </div>
+            </div>
+            <div className="flex items-center w-[10%]">
+              <Switch checked={shop} onCheckedChange={() => setShop(!shop)} />
+            </div>
+          </div>
+          <div className="flex w-full py-2  mt-1">
+            <div className="left  w-[100%]">
+              <div className="text-[20px] text-textsecondary">Flights</div>
+              <div className="text-[16px] text-textsecondary-light">
+                Enable for agents to redeem points for flights
+              </div>
+            </div>
+            <div className="flex items-center w-[10%]">
+              <Switch checked={flights} onCheckedChange={() => setFlights(!flights)} />
+            </div>
+          </div>
+          <div className="flex w-full py-2 mt-1">
+            <div className="left  w-[100%]">
+              <div className="text-[20px] text-textsecondary">
+                Food Vouchers
+              </div>
+              <div className="text-[16px] text-textsecondary-light">
+                Enable for agents to redeem points for food vouchers
+              </div>
+            </div>
+            <div className="flex items-center w-[10%]">
+              <Switch checked={food} onCheckedChange={() => setFood(!food)} />
+            </div>
+          </div>
+          <div className="flex w-full py-2 mt-1">
+            <div className="left  w-[100%]">
+              <div className="text-[20px] text-textsecondary">Vacations</div>
+              <div className="text-[16px] text-textsecondary-light">
+                Enable for agents to redeem points for full sponsored trips
+              </div>
+            </div>
+            <div className="flex items-center w-[10%]">
+              <Switch
+                checked={vacation}
+                onCheckedChange={() => setVacation(!vacation)}
+              />
+            </div>
+          </div>
+        </Card>
+      </div>
+    </GenericLayout>
+  );
+};
 
-            {/* Tiles */}
-            
-            <div className={"flex flex-col gap-2 mt-1"} onClick={()=>navigate(withPublicUrl(`/scorecard/configuration/2`))}>
-                <Tile data={configList} />
-            </div>    
-        </GenericLayout>
-    )
-}
-
-export default Scoreboard
-
+export default Scoreboard;

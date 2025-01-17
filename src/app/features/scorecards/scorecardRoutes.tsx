@@ -1,16 +1,12 @@
-import { Route, Routes } from "react-router-dom"
-import Scoreboard from "./Scoreboard"
-import ConfigurationSettings from "./ConfigurationSettings"
+import { Route, Routes } from "react-router-dom";
+import Scoreboard from "./Scoreboard";
 
 const scorecardRoutes = () => {
-
   return (
     <Routes>
-        <Route path="/" element={<Scoreboard />} />
-        <Route path="/configuration/:id" element={<ConfigurationSettings />} />
-        <Route path="/new" element={<ConfigurationSettings />} />
-      </Routes>
-  )
-}
+      <Route path="/" element={<Scoreboard />} />
+    </Routes>
+  );
+};
 
-export default scorecardRoutes
+export default scorecardRoutes;
