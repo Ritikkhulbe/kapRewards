@@ -1,0 +1,39 @@
+image: node:18.18.2
+
+# Workflow Configuration
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: "PRODUCTION - Test & Build"
+          caches:
+            - nodemodule
+          script:
+            - echo "Installing packages...."
+            - yarn
+            - echo "Running build scripts...."
+            - unset CI
+            - env VITE_PUBLIC_URL=/qa yarn build
+            - echo "Build complete."
+          artifacts:
+            - dist/**
+      - step:
+          name: "Production Release - Deploy"
+          trigger: manual
+          deployment: prod
+          script:
+            - echo "Deploying Prod..."
+            - cd dist && tar -cvf ../build_${BITBUCKET_BUILD_NUMBER}.tar . && cd ..
+            - pipe: atlassian/scp-deploy:0.3.3
+              variables:
+                USER: $KAPTURE_REACT_SERVER_USER
+                SERVER: $KAPTURE_REACT_SERVER_HOST
+                REMOTE_PATH: "${SERVER_ROOT}/build_qa_archives/"
+                LOCAL_PATH: build_${BITBUCKET_BUILD_NUMBER}.tar
+                DEBUG: "true"
+            - ssh $KAPTURE_REACT_SERVER_USER@$KAPTURE_REACT_SERVER_HOST "cd '${SERVER_ROOT}/qa/' && tar -xf ${SERVER_ROOT}/build_qa_archives/build_${BITBUCKET_BUILD_NUMBER}.tar && rm ${SERVER_ROOT}/build_qa_archives/build_${BITBUCKET_BUILD_NUMBER}.tar"
+            - echo "Project Deployed on Server Successfully....."
+definitions:
+  caches:
+    nodemodule: ./node_modules

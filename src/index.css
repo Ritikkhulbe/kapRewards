@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.layout {
+    display: flex;
+}
+    
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #FAFBFC;
+}
+
+/* Base state styles */
+.base-icon rect {
+    fill: white;
+  }
+  
+  .base-icon path {
+    stroke: #929ba8;
+  }
+  
+  /* Hover state styles */
+  .icon:hover rect {
+    fill: #e9f2fe; /* Hover background color */
+  }
+  
+  .icon:hover path {
+    stroke: #8a9cb8; /* Hover path color */
+  }
+  
+  /* Active state styles */
+  .active-icon rect {
+    fill: #e9f2fe;
+  }
+  
+  .active-icon path {
+    fill: #277df9;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+  padding-left: 2px;
+  gap: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  padding-left: 2px;
+  gap: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ECEEF1;
+  padding-left: 2px;
+  gap: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  padding-left: 2px;
+  gap: 2px;
+}

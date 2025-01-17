@@ -1,0 +1,24 @@
+import { Navigate, Route, Routes } from "react-router-dom"
+import routesConfig from "./routesConfig"
+import SettingsRoutes from "@/app/features/settings/SettingsRoutes"
+import { withPublicUrl } from "@/util"
+
+const RootRouter = () => {
+  return (
+    <Routes>
+      {/* Redirect from root to a default route, if needed */}
+      <Route path={"/"} element={<Navigate to={withPublicUrl("/dashboard")} replace />} />
+      
+      {/* Map through routesConfig to create Route components */}
+      {routesConfig.map((route) => (
+        <Route key={route.path} path={withPublicUrl(route.path)} element={<route.element />} />
+      ))}
+
+      <Route path={withPublicUrl("/settings")} element={<SettingsRoutes />} />
+
+
+    </Routes>
+  )
+}
+
+export default RootRouter
