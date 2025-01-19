@@ -4,6 +4,8 @@ interface Product {
   name: string;
   points: number;
   image: string;
+  rating: number;
+  description: string;
 }
 
 const OrderPage = () => {
@@ -55,9 +57,20 @@ const OrderPage = () => {
     window.location.href = `mailto:finance@company.com?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:finance@company.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
   };
 
   return (
+    <div
+      style={{
+        display: "flex",
+        fontFamily: "Arial, sans-serif",
+        margin: "20px",
+        color: "#333",
+      }}
+    >
     <div
       style={{
         display: "flex",
@@ -74,8 +87,19 @@ const OrderPage = () => {
           padding: "20px",
           overflowY: "auto",
           boxShadow: "2px 0px 8px rgba(0, 0, 0, 0.1)",
+          width: "30%",
+          borderRight: "1px solid #ddd",
+          padding: "20px",
+          overflowY: "auto",
+          boxShadow: "2px 0px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
+        <h2
+          style={{ fontSize: "1.5rem", marginBottom: "10px", color: "#4caf50" }}
+        >
+          Available Products
+        </h2>
+        <div style={{ display: "grid", gap: "10px" }}>
         <h2
           style={{ fontSize: "1.5rem", marginBottom: "10px", color: "#4caf50" }}
         >
@@ -86,6 +110,13 @@ const OrderPage = () => {
             <div
               key={index}
               style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "10px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                backgroundColor: "#fff",
                 display: "flex",
                 alignItems: "center",
                 padding: "10px",
@@ -128,8 +159,16 @@ const OrderPage = () => {
 
       {/* Main Content */}
       <div style={{ width: "70%", padding: "20px" }}>
+      <div style={{ width: "70%", padding: "20px" }}>
         <header
           style={{
+            backgroundColor: "#4caf50",
+            color: "white",
+            padding: "20px",
+            textAlign: "center",
+            borderRadius: "10px",
+            marginBottom: "20px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
             backgroundColor: "#4caf50",
             color: "white",
             padding: "20px",
@@ -144,6 +183,12 @@ const OrderPage = () => {
 
         <div
           style={{
+            textAlign: "center",
+            border: "2px solid #ddd",
+            borderRadius: "15px",
+            padding: "20px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "#fff",
             textAlign: "center",
             border: "2px solid #ddd",
             borderRadius: "15px",
@@ -174,6 +219,15 @@ const OrderPage = () => {
           <button
             onClick={handleEmail}
             style={{
+              backgroundColor: "#4caf50",
+              color: "white",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              fontSize: "1rem",
+              marginTop: "20px",
+              transition: "background-color 0.3s",
               backgroundColor: "#4caf50",
               color: "white",
               padding: "10px 20px",

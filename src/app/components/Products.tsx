@@ -6,6 +6,7 @@ interface Product {
   image: string;
   points: number;
   rating: number;
+  description : string;
 }
 
 const ProductPage = () => {

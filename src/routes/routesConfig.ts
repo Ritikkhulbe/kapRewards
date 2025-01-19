@@ -10,6 +10,7 @@ import RewardsPage from "@/app/components/RewardsPage";
 import GiftNotification from "@/app/components/GiftNotification";
 import ProductPage from  "@/app/components/Products"
 import OrderPage from  "@/app/components/OrderPage"
+import GiftCardPage from "@/app/components/GiftCard";
 
 interface RouteConfig {
   path: string;
@@ -61,6 +62,12 @@ const routesConfig: RouteConfig[] = [
     title: "Card",
     icon: ScoreCardIcon,
   },
+  {
+    path: "/giftCard/*",
+    element: GiftCardPage,
+    title: "Card",
+    icon: ScoreCardIcon,
+  }
 ];
 
 export default routesConfig;
