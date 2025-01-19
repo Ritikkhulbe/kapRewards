@@ -4,6 +4,7 @@ import SettingsRoutes from "@/app/features/settings/SettingsRoutes";
 import { withPublicUrl } from "@/util";
 import ProductPage from "@/app/components/Products";
 import OrderPage from "@/app/components/OrderPage";
+import GiftCardPage from "@/app/components/GiftCard";
 
 const RootRouter = () => {
   return (
@@ -28,6 +29,8 @@ const RootRouter = () => {
       <Route path={withPublicUrl("/products")} element={<ProductPage />} />
 
       <Route path={withPublicUrl("/order")} element={<OrderPage />} />
+
+      <Route path={"/giftCard"} element={<GiftCardPage />} />
     </Routes>
   );
 };
