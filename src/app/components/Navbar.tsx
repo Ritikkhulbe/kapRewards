@@ -1,6 +1,5 @@
 import routesConfig from "@/routes/routesConfig";
 import { NavLink } from "react-router-dom";
-import SettingsIcon from "../assets/icons/SettingsIcon";
 import Logo from "../assets/icons/Logo";
 import AgentIcon from "../assets/icons/AgentIcon";
 import { Separator } from "@/components/ui/separator";
