@@ -3,7 +3,6 @@ import ConversationsIcon from "@/app/assets/icons/ConversationsIcon";
 import DashboardIcon from "@/app/assets/icons/DashboardIcon";
 import ScoreCardIcon from "@/app/assets/icons/ScoreCardIcon";
 // import CoachingRoutes from "@/app/features/coaching/CoachingRoutes";
-import ConversationRoutes from "@/app/features/conversations/ConversationRoutes";
 import DashboardRoutes from "@/app/features/dashboard/DashboardRoutes";
 import scorecardRoutes from "@/app/features/scorecards/scorecardRoutes";
 import RewardsPage from "@/app/components/RewardsPage";
@@ -36,12 +35,6 @@ const routesConfig: RouteConfig[] = [
     path: "/scorecard/*",
     element: scorecardRoutes,
     title: "Score Card",
-    icon: ScoreCardIcon,
-  },
-  {
-    path: "/reward/*",
-    element: RewardsPage,
-    title: "Card",
     icon: ScoreCardIcon,
   },
   {

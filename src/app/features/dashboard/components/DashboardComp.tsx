@@ -200,7 +200,7 @@ const DashboardComp = () => {
             </TabsList>
             <TabsContent value="Live" className="w-full">
               <div className="flex flex-col w-full overflow-y-scroll justify-between">
-                  {Leaderboard.map((item, index) => (
+                  {Leaderboard.map((item:any, index) => (
                   <div
                     key={index}
                     className={cn(

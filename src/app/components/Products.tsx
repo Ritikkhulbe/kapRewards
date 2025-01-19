@@ -14,7 +14,7 @@ const ProductPage = () => {
 
   const employeePoints = 1000; // Replace with dynamic value as needed.
 
-  const sampleProducts: Product[] = [
+  const sampleProducts: any[] = [
     {
       name: "Wireless Headphones",
       image:

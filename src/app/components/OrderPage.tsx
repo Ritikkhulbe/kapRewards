@@ -13,7 +13,7 @@ const OrderPage = () => {
   const { state } = location;
   const selectedProduct = state as Product;
 
-  const sampleProducts: Product[] = [
+  const sampleProducts: any[] = [
     {
       name: "Wireless Headphones",
       image: "https://via.placeholder.com/150/1E90FF/FFFFFF?text=Headphones",
@@ -71,22 +71,9 @@ const OrderPage = () => {
         color: "#333",
       }}
     >
-    <div
-      style={{
-        display: "flex",
-        fontFamily: "Arial, sans-serif",
-        margin: "20px",
-        color: "#333",
-      }}
-    >
       {/* Left Sidebar */}
       <div
         style={{
-          width: "30%",
-          borderRight: "1px solid #ddd",
-          padding: "20px",
-          overflowY: "auto",
-          boxShadow: "2px 0px 8px rgba(0, 0, 0, 0.1)",
           width: "30%",
           borderRight: "1px solid #ddd",
           padding: "20px",
@@ -110,13 +97,6 @@ const OrderPage = () => {
             <div
               key={index}
               style={{
-                display: "flex",
-                alignItems: "center",
-                padding: "10px",
-                border: "1px solid #ddd",
-                borderRadius: "10px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                backgroundColor: "#fff",
                 display: "flex",
                 alignItems: "center",
                 padding: "10px",
@@ -169,13 +149,6 @@ const OrderPage = () => {
             borderRadius: "10px",
             marginBottom: "20px",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-            backgroundColor: "#4caf50",
-            color: "white",
-            padding: "20px",
-            textAlign: "center",
-            borderRadius: "10px",
-            marginBottom: "20px",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
           }}
         >
           <h1 style={{ fontSize: "2rem", margin: "0" }}>Order Product</h1>
@@ -183,12 +156,6 @@ const OrderPage = () => {
 
         <div
           style={{
-            textAlign: "center",
-            border: "2px solid #ddd",
-            borderRadius: "15px",
-            padding: "20px",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-            backgroundColor: "#fff",
             textAlign: "center",
             border: "2px solid #ddd",
             borderRadius: "15px",
@@ -228,15 +195,6 @@ const OrderPage = () => {
               fontSize: "1rem",
               marginTop: "20px",
               transition: "background-color 0.3s",
-              backgroundColor: "#4caf50",
-              color: "white",
-              padding: "10px 20px",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "1rem",
-              marginTop: "20px",
-              transition: "background-color 0.3s",
             }}
             onMouseOver={(e) =>
               (e.currentTarget.style.backgroundColor = "#45a049")
@@ -249,6 +207,8 @@ const OrderPage = () => {
           </button>
         </div>
       </div>
+    </div>
+    </div>
     </div>
   );
 };
