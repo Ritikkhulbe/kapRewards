@@ -4,8 +4,6 @@ interface Product {
   name: string;
   points: number;
   image: string;
-  rating: number;
-  description: string;
 }
 
 const OrderPage = () => {
@@ -13,7 +11,7 @@ const OrderPage = () => {
   const { state } = location;
   const selectedProduct = state as Product;
 
-  const sampleProducts: any[] = [
+  const sampleProducts: Product[] = [
     {
       name: "Wireless Headphones",
       image: "https://via.placeholder.com/150/1E90FF/FFFFFF?text=Headphones",
@@ -57,9 +55,6 @@ const OrderPage = () => {
     window.location.href = `mailto:finance@company.com?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
-    window.location.href = `mailto:finance@company.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -81,12 +76,6 @@ const OrderPage = () => {
           boxShadow: "2px 0px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <h2
-          style={{ fontSize: "1.5rem", marginBottom: "10px", color: "#4caf50" }}
-        >
-          Available Products
-        </h2>
-        <div style={{ display: "grid", gap: "10px" }}>
         <h2
           style={{ fontSize: "1.5rem", marginBottom: "10px", color: "#4caf50" }}
         >
@@ -138,7 +127,6 @@ const OrderPage = () => {
       </div>
 
       {/* Main Content */}
-      <div style={{ width: "70%", padding: "20px" }}>
       <div style={{ width: "70%", padding: "20px" }}>
         <header
           style={{
@@ -207,8 +195,6 @@ const OrderPage = () => {
           </button>
         </div>
       </div>
-    </div>
-    </div>
     </div>
   );
 };

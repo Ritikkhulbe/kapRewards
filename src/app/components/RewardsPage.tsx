@@ -22,7 +22,7 @@ const RewardsPage = ({ name = "Mohit", rewardPoints = "32" }) => {
     {
       title: "Gift Cards",
       image: giftRewardsImage,
-      route: "https://amazon.com/gift-cards",
+      route: "/giftCard",
     },
     {
       title: "Cash Rewards",
@@ -32,7 +32,7 @@ const RewardsPage = ({ name = "Mohit", rewardPoints = "32" }) => {
     {
       title: "Shopping Vouchers",
       image: shoppingRewardsImage,
-      route: "https://www.skyscanner.co.in",
+      route: "/products",
     },
     {
       title: "Wellness Programs",
