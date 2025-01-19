@@ -3,7 +3,7 @@ import EvaluationItem from "./EvaluationItem";
 import SendForRebuttal from "./SendRebuttal";
 
 interface EvaluationReportSectionProps {
-  role: string;
+  role: string | null;
 }
 
 const EvaluationReportSection: FC<EvaluationReportSectionProps> = ({

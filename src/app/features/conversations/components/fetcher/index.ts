@@ -1,10 +1,8 @@
-
-
-import { GetMessagesResponse } from "./types";
+  
 
 import { L1ConversationDataSet,L2ConversationDataSet,AuditorConversationDataSet,L1ConversationHistoryDataSet,L2ConversationHistoryDataSet,AuditorConversationHistoryDataSet } from "./types";
 
-export const getConversationMessages = async (): Promise<GetMessagesResponse> => {
+export const getConversationMessages = async (): Promise<any> => {
     const response = await fetch("https://democrm.kapturecrm.com/api/version3/ticket/get-ticket-detail", {
         method: "POST",
         headers: {

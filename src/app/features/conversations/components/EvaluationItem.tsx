@@ -8,7 +8,7 @@ interface EvaluationItemProps {
   score: string;
   autoQA: string;
   ztFailed: boolean;
-  role: string; // Role: e.g., "Auditor"
+  role: string | null; // Role: e.g., "Auditor"
   onDetailsClick?: () => void;
 }
 
