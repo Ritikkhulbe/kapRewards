@@ -28,21 +28,7 @@ interface ConversationInboxAuditor {
   date: string;
 }
 
-type ConversationInbox =
-  | ConversationInboxL1
-  | ConversationInboxL2
-  | ConversationInboxAuditor;
-
-interface ConversationInboxTableProps {
-  data: ConversationInbox[];
-  role: string;
-  agent: string;
-}
-
-export const ConversationInboxTable: React.FC<ConversationInboxTableProps> = ({
-  data,
-  role,
-}) => {
+export const ConversationInboxTable: React.FC<any> = ({ data, role }) => {
   const [hoveredRow, setHoveredRow] = useState<string | null>(null);
 
   const navigate = useNavigate();
@@ -87,7 +73,7 @@ export const ConversationInboxTable: React.FC<ConversationInboxTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {data.map((item: any, index: any) => (
             <tr
               key={item.id}
               className={`${

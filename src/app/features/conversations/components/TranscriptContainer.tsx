@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 import { getConversationMessages } from "./fetcher";
-import { WhatsAppMessage } from "./fetcher/types";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const TranscriptContainer: React.FC = () => {
@@ -20,7 +19,7 @@ const TranscriptContainer: React.FC = () => {
   
         if (data.response?.whatsapp) {
           const whatsappMessages = data.response?.whatsapp;
-          const formattedMessages = whatsappMessages.map((msg) => {
+          const formattedMessages = whatsappMessages.map((msg:any) => {
             const isAgent = msg.postedByUserNumber === msg.whatsappNumber;
   
             return {

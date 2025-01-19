@@ -13,7 +13,7 @@ import OrderPage from  "@/app/components/OrderPage"
 
 interface RouteConfig {
   path: string;
-  element: () => JSX.Element;
+  element: (props:any) => JSX.Element;
   title: string;
   icon: ({isActive}: {isActive:boolean}) => JSX.Element;
 }
@@ -26,9 +26,9 @@ const routesConfig: RouteConfig[] = [
     icon: DashboardIcon,
   },
   {
-    path: "/conversations/*",
-    element: ConversationRoutes,
-    title: "Conversations",
+    path: "/reward/*",
+    element: RewardsPage,
+    title: "Card",
     icon: ConversationsIcon,
   },
   {

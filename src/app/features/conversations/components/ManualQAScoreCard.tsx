@@ -6,8 +6,8 @@ import EvaluationReportSection from "./EvaluationReportSection";
 interface ManualQAScoreCardProps {
   showTranscript: boolean;
   setShowTranscript: React.Dispatch<React.SetStateAction<boolean>>;
-  agent: string;
-  role: string;
+  agent: string | null;
+  role: string | null;
   viewScoringScreen: boolean;
 }
 

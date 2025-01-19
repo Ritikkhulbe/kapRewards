@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.VITE_PUBLIC_URL || "/",
+  base: process.env.VITE_PUBLIC_URL || "./",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -4,23 +4,22 @@ import SingleBar from "@/app/genericComponents/smallerComponents/SingleBar";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 //auto vs manual qa graph
 const option: ReactEChartsProps["option"] | any = {
   dataset: {
     source: [
-      ["Week", "Auto QA", "Manual QA"],
-      ["Monday", 4, 1],
-      ["Tuesday", 2, 0],
-      ["Wednesday", 3, 6],
-      ["Thursday", 5, 1],
-      ["Friday", 3, 5],
-      ["Saturday", 2, 6],
+      ["Week", "Current Week", "Last Week"],
+      ["Monday", 42, 14],
+      ["Tuesday", 23, 21],
+      ["Wednesday", 23, 46],
+      ["Thursday", 45, 21],
+      ["Friday", 33, 25],
+      ["Saturday", 32, 16],
     ],
   },
   title: {
-    text: "Auto QA vs Manual QA",
+    text: "Current Week vs Last Week",
     show: true,
     textStyle: {
       fontSize: "14px",
@@ -35,7 +34,7 @@ const option: ReactEChartsProps["option"] | any = {
     },
   },
   legend: {
-    data: ["Auto QA", "Manual QA"],
+    data: ["Current Week", "Last Week"],
     bottom: 0,
     lineStyle: {
       color: "#fff",
@@ -146,7 +145,7 @@ const Leaderboard2 = [
 //channel breakdown graph
 
 const DashboardComp = () => {
-  const [currentUser, setCurrentUser] = useState<string>("Ritik");
+  const currentUser = "Ritik";
   return (
     <>
       <div className="grid grid-cols-3">

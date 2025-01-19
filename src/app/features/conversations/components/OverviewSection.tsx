@@ -4,16 +4,15 @@ import OverviewCard from "./OverviewCard";
 import { SmileIcon } from "lucide-react";
 import MessageChatSquare from "@/app/assets/icons/messageChatSquare";
 import FrameIcon from "@/app/assets/icons/Frame";
-import ScoringView from "./ScoringView";
 import { withPublicUrl } from "@/util";
 import { useNavigate } from "react-router-dom";
 
 interface OverviewSectionProps {
   showTranscript: boolean;
   setShowTranscript: React.Dispatch<React.SetStateAction<boolean>>;
-  role: string;
-  agent: string;
-  ticketId: string;
+  role: string | null;
+  agent: string | null;
+  ticketId: string | undefined;
   viewScoringScreen: boolean;
 }
 
@@ -29,7 +28,7 @@ const OverviewSection: FC<OverviewSectionProps> = ({
     setShowTranscript((prev) => !prev);
   };
   const [isExpanded, setIsExpanded] = useState(true);
-  const [scoreTicketView, setScoreTicketView] = useState(viewScoringScreen);
+  const [scoreTicketView] = useState(viewScoringScreen);
   const navigate = useNavigate();
   console.log(showTranscript, "showTranscript");
 
@@ -66,7 +65,7 @@ const OverviewSection: FC<OverviewSectionProps> = ({
               <div className="flex items-center gap-2 mr-8">
                 <span className="gap-2 text-sm text-gray-500">Agent:</span>
                 <div className="w-6 h-6 bg-blue-100 border border-blue-200 rounded-full flex justify-center items-center text-blue-600 font-semibold text-xs">
-                  {agent
+                  {agent && agent
                     .split(" ")
                     .map((word) => word[0])
                     .join("")}
