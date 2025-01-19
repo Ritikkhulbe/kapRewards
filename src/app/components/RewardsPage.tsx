@@ -1,21 +1,26 @@
-
 import React from 'react';
+import cashRewardsImage from '../assets/ImageFolder/cash_reward.png';
+import planeRewawrdsImage from '../assets/ImageFolder/plane_rewards.jpg';
+import tripRewardsImage from '../assets/ImageFolder/trip_rewards.jpg';
+import giftRewardsImage from '../assets/ImageFolder/gift_reward.png';
+import shoppingRewardsImage from '../assets/ImageFolder/wellness_rewards.jpg';
+import wellnessRewardsImage from '../assets/ImageFolder/wellness_rewards.jpg';
+import onlineShoppingRewardsImage from '../assets/ImageFolder/gift_reward.png';
 
 interface EmployeeProps {
   name: string;
   rewardPoints: number;
 }
 
-const RewardsPage: React.FC<EmployeeProps> = ({ name = "Mohit", rewardPoints= "32" }) => {
-
-    const rewards = [
-    { title: 'Flight Tickets', image: './images/flights', route: 'https://www.skyscanner.co.in' },
-    { title: 'Trips', image: '/images/trips.png', route: 'https://www.makemytrip.com/holidays-international/thailand-tourism.html' },
-    { title: 'Gift Cards', image: '/images/gift-cards.png', route: 'https://amazon.com/gift-cards' },
-    { title: 'Cash Rewards', image: '/images/cash.png', route: 'https://paytm.com/money' },
-    { title: 'Shopping Vouchers', image: '/images/vouchers.png', route: 'https://www.skyscanner.co.in' },
-    { title: 'Wellness Programs', image: '/images/wellness.png', route: 'https://www.skyscanner.co.in' },
-    {title: 'Online Shopping', image : '' , route: 'https://amazon.com/'}
+const RewardsPage: React.FC<EmployeeProps> = ({ name = "Mohit", rewardPoints = "32" }) => {
+  const rewards = [
+    { title: 'Flight Tickets', image: planeRewawrdsImage, route: 'https://www.skyscanner.co.in' },
+    { title: 'Trips', image: tripRewardsImage, route: 'https://www.makemytrip.com/holidays-international/thailand-tourism.html' },
+    { title: 'Gift Cards', image: giftRewardsImage, route: 'https://amazon.com/gift-cards' },
+    { title: 'Cash Rewards', image: cashRewardsImage, route: 'https://paytm.com/money' },
+    { title: 'Shopping Vouchers', image: shoppingRewardsImage, route: 'https://www.skyscanner.co.in' },
+    { title: 'Wellness Programs', image: wellnessRewardsImage, route: 'https://www.skyscanner.co.in' },
+    { title: 'Online Shopping', image: onlineShoppingRewardsImage, route: 'https://amazon.com/' }
   ];
 
   const handleCardClick = (route: string) => {
@@ -90,4 +95,3 @@ const RewardsPage: React.FC<EmployeeProps> = ({ name = "Mohit", rewardPoints= "3
 };
 
 export default RewardsPage;
-
