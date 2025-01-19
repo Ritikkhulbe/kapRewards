@@ -4,7 +4,6 @@ import SingleBar from "@/app/genericComponents/smallerComponents/SingleBar";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 //auto vs manual qa graph
 const option: ReactEChartsProps["option"] | any = {
@@ -146,7 +145,7 @@ const Leaderboard2 = [
 //channel breakdown graph
 
 const DashboardComp = () => {
-  const [currentUser, setCurrentUser] = useState<string>("Ritik");
+  const currentUser = "Ritik";
   return (
     <>
       <div className="grid grid-cols-3">

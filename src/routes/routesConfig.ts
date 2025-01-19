@@ -3,10 +3,7 @@ import ConversationsIcon from "@/app/assets/icons/ConversationsIcon";
 import DashboardIcon from "@/app/assets/icons/DashboardIcon";
 import ScoreCardIcon from "@/app/assets/icons/ScoreCardIcon";
 import GiftNotification from "@/app/components/GiftNotification";
-import OrderPage from "@/app/components/OrderPage";
-import ProductPage from "@/app/components/Products";
 import RewardsPage from "@/app/components/RewardsPage";
-import ConversationRoutes from "@/app/features/conversations/ConversationRoutes";
 import DashboardRoutes from "@/app/features/dashboard/DashboardRoutes";
 import scorecardRoutes from "@/app/features/scorecards/scorecardRoutes";
 

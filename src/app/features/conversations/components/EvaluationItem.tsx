@@ -9,6 +9,7 @@ interface EvaluationItemProps {
   autoQA: string;
   ztFailed: boolean;
   role: string; // Role: e.g., "Auditor"
+  onDetailsClick?: () => void;
 }
 
 const EvaluationItem: FC<EvaluationItemProps> = ({

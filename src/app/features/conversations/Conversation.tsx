@@ -23,18 +23,20 @@ import { useLocation } from "react-router-dom";
 import { withPublicUrl } from "@/util";
 
 export default function Conversation() {
-  const [activeTab, setActiveTab] = useState<string>("inbox");
-  const [notificationCount, setNotificationCount] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<any>("inbox");
+  const [notificationCount, setNotificationCount] = useState<any>(0);
 
   const [conversationInboxData, setConversationInboxData] = useState<
     | L1ConversationDataSet[]
     | L2ConversationDataSet[]
     | AuditorConversationDataSet[]
+    | any
   >([]);
   const [conversationHistoryData, setConversationHistoryData] = useState<
     | L1ConversationHistoryDataSet[]
     | L2ConversationHistoryDataSet[]
     | AuditorConversationHistoryDataSet[]
+    | any
   >([]);
 
   const [loading, setLoading] = useState<boolean>(false);

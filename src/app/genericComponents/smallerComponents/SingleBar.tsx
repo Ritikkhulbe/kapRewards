@@ -31,6 +31,7 @@ const SingleBar = ({
     }
   }
 
+  console.log(bar_bg_colour);
   return (
     <div className="w-full">
       <div className="flex justify-between items-center pt-1 px-1">
@@ -49,7 +50,9 @@ const SingleBar = ({
             width: `${currentPercentage}%`,
             transition: "width 1s ease-in-out", // Smooth transition for the width
           }}
-        ></div>
+        >
+          {""}
+        </div>
       </div>
     </div>
   );
