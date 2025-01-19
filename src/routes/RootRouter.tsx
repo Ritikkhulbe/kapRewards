@@ -25,7 +25,7 @@ const RootRouter = () => {
 
       <Route path={withPublicUrl("/settings")} element={<SettingsRoutes />} />
 
-      <Route path={withPublicUrl("/shop")} element={<ProductPage />} />
+      <Route path={withPublicUrl("/products")} element={<ProductPage />} />
 
       <Route path={withPublicUrl("/order")} element={<OrderPage />} />
     </Routes>
