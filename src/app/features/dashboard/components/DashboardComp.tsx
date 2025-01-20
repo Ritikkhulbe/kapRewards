@@ -4,6 +4,7 @@ import SingleBar from "@/app/genericComponents/smallerComponents/SingleBar";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 //auto vs manual qa graph
 const option: ReactEChartsProps["option"] | any = {
@@ -80,165 +81,188 @@ const option: ReactEChartsProps["option"] | any = {
   ],
 };
 
-const Leaderboard = [
-  {
-    name: "Ritik",
-    value: 76,
-  },
-  {
-    name: "Mohit",
-    value: 56,
-  },
-  {
-    name: "Dhananjay",
-    value: 45,
-  },
-  {
-    name: "Rahul",
-    value: 34,
-  },
-  {
-    name: "Raj",
-    value: 23,
-  },
-  {
-    name: "Kavya",
-    value: 12,
-  },
-  {
-    name: "Rajat",
-    value: 1,
-  },
-];
+// const Leaderboard = [
+//   {
+//     name: "Ritik",
+//     value: 76,
+//   },
+//   {
+//     name: "Mohit",
+//     value: 56,
+//   },
+//   {
+//     name: "Dhananjay",
+//     value: 45,
+//   },
+//   {
+//     name: "Rahul",
+//     value: 34,
+//   },
+//   {
+//     name: "Raj",
+//     value: 23,
+//   },
+//   {
+//     name: "Kavya",
+//     value: 12,
+//   },
+//   {
+//     name: "Rajat",
+//     value: 1,
+//   },
+// ];
 
-const Leaderboard2 = [
-  {
-    name: "Mohit",
-    value: 76,
-  },
-  {
-    name: "Ritik",
-    value: 45,
-  },
-  {
-    name: "Dhananjay",
-    value: 43,
-  },
-  {
-    name: "Rahul",
-    value: 34,
-  },
-  {
-    name: "Raj",
-    value: 33,
-  },
-  {
-    name: "Kavya",
-    value: 30,
-  },
-  {
-    name: "Rajat",
-    value: 12,
-  },
-];
+// const Leaderboard2 = [
+//   {
+//     name: "Mohit",
+//     value: 76,
+//   },
+//   {
+//     name: "Ritik",
+//     value: 45,
+//   },
+//   {
+//     name: "Dhananjay",
+//     value: 43,
+//   },
+//   {
+//     name: "Rahul",
+//     value: 34,
+//   },
+//   {
+//     name: "Raj",
+//     value: 33,
+//   },
+//   {
+//     name: "Kavya",
+//     value: 30,
+//   },
+//   {
+//     name: "Rajat",
+//     value: 12,
+//   },
+// ];
 
 //channel breakdown graph
 
-const DashboardComp = () => {
-  const currentUser = "Ritik";
-  return (
-    <>
-    <div className="grid grid-cols-3">
-      <div className="w-full mt-1 col-span-2">
-        <div className="w-full flex justify-between mb-2">
-          <SmallCard
-            title="Total tickets handled"
-              number={"435"}
-            variant="up"
-            percentage={10}
-          />
-          <SmallCard
-            title="Total Successful tickets"
-              number={"243"}
-            variant="up"
-            percentage={14}
-          />
-          <SmallCard
-            title="Total Failed tickets"
-              number={"192"}
-            variant="down"
-            percentage={7}
-          />
-        </div>
-        <Card className=" font-light text-[14px] text-textsecondary-light h-[50vh] p-3 w-full mr-[1%] bg-primary">
-          <ReactECharts option={option} />
-        </Card>
-      </div>
-        <div className="w-full ml-2 mt-1 col-span-1 ">
-        <Card className="w-full h-[100%] bg-white p-4">
-            <span className=" font-bold text-[25px] w-[220%] mb-2">
-              Leaderboard
-            </span>
-          <Tabs defaultValue="Live" className="w-full mt-2">
-            <TabsList>
-              <TabsTrigger
-                value="Live"
-                  className={
-                    "rounded-l-cs border-fourth border font-semibold text-textsecondary-light px-4text-[16px]"
-                  }
-              >
-                Live
-              </TabsTrigger>
-              <TabsTrigger
-                value="Last"
-                  className={
-                    "rounded-r-cs border-fourth border font-semibold text-textsecondary-light px-4  text-[16px]"
-                  }
-              >
-                Last
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="Live" className="w-full">
-              <div className="flex flex-col w-full overflow-y-scroll justify-between">
-                  {Leaderboard.map((item:any, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                      "flex items-center w-full px-2 pb-1 ",
-                      item.emp_id === "415"
-                        ? "rounded-[6px] border-textsecondary-light border"
-                        : ""
-                    )}
-                  >
-                      <SingleBar title={item.name} percentage={item.value} />
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
+const DashboardComp = ({ data }: { data: any }) => {
+  const [currentUser, setCurrentUser] = useState("");
 
-            <TabsContent value="Last">
-              <div className="flex flex-col w-full overflow-y-scroll justify-between ">
-                  {Leaderboard2.map((item, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                        "flex items-center w-full  px-2  pb-1",
-                        item.name === currentUser
-                          ? "rounded-[6px] border border-textsecondary-light"
-                        : ""
-                    )}
+  useEffect(() => {
+    if (data.agent_name) {
+      setCurrentUser(data.agent_name);
+    }
+  }, [data]);
+
+  if (data && data.agent_id) {
+    return (
+      <>
+        <div className="grid grid-cols-3">
+          <div className="w-full mt-1 col-span-2">
+            <div className="w-full flex justify-between mb-2">
+              <SmallCard
+                title="Total tickets handled"
+                number={data.passed_tickets + data.failed_tickets + ""}
+                variant="up"
+                percentage={10}
+              />
+              <SmallCard
+                title="Total Successful tickets"
+                number={data.passed_tickets + ""}
+                variant="up"
+                percentage={14}
+              />
+              <SmallCard
+                title="Total Failed tickets"
+                number={data.failed_tickets + ""}
+                variant="down"
+                percentage={7}
+              />
+            </div>
+            <Card className=" font-light text-[14px] text-textsecondary-light h-[50vh] p-3 w-full mr-[1%] bg-primary">
+              <ReactECharts option={option} />
+            </Card>
+          </div>
+          <div className="w-full ml-2 mt-1 col-span-1 ">
+            <Card className="w-full h-[100%] bg-white p-4">
+              <span className=" font-bold text-[25px] w-[220%] mb-2">
+                Leaderboard
+              </span>
+              <Tabs defaultValue="Live" className="w-full mt-2">
+                <TabsList>
+                  <TabsTrigger
+                    value="Live"
+                    className={
+                      "rounded-l-cs border-fourth border font-semibold text-textsecondary-light px-4text-[16px]"
+                    }
                   >
-                      <SingleBar title={item.name} percentage={item.value} />
+                    Live
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="Last"
+                    className={
+                      "rounded-r-cs border-fourth border font-semibold text-textsecondary-light px-4  text-[16px]"
+                    }
+                  >
+                    Last
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="Live" className="w-full">
+                  <div className="flex flex-col w-full overflow-y-scroll justify-between">
+                    {data?.leader_board_details?.leader_board_live?.map(
+                      (item: any, index: any) => (
+                        <div
+                          key={index}
+                          className={cn(
+                            "flex items-center w-full px-2 pb-1 ",
+                            item.agent_id === data.agent_id
+                              ? "rounded-[6px] border-textsecondary-light border"
+                              : ""
+                          )}
+                        >
+                          <SingleBar
+                            title={item.agent_name}
+                            percentage={item.total_points}
+                            data={data?.leader_board_details?.leader_board_live}
+                          />
+                        </div>
+                      )
+                    )}
                   </div>
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
-        </Card>
-      </div>
-    </div>
-    </>
-  );
+                </TabsContent>
+
+                <TabsContent value="Last">
+                  <div className="flex flex-col w-full overflow-y-scroll justify-between ">
+                    {data?.leader_board_details?.leader_board_past?.map(
+                      (item: any, index: any) => (
+                        <div
+                          key={index}
+                          className={cn(
+                            "flex items-center w-full  px-2  pb-1",
+                            item.agent_name === currentUser
+                              ? "rounded-[6px] border border-textsecondary-light"
+                              : ""
+                          )}
+                        >
+                          <SingleBar
+                            title={item.name}
+                            percentage={item.value}
+                            data={data?.leader_board_details?.leader_board_past}
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </Card>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  return null;
 };
 
 export default DashboardComp;

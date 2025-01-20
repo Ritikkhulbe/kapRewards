@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 const SingleBar = ({
   title,
   percentage,
+  data,
 }: {
   title: string;
   percentage?: number;
+  data: any;
 }) => {
   const [currentPercentage, setCurrentPercentage] = useState(0);
 
@@ -13,7 +15,7 @@ const SingleBar = ({
   useEffect(() => {
     if (percentage === undefined) return;
     setTimeout(() => {
-      setCurrentPercentage((percentage * 100) / 76);
+      setCurrentPercentage((percentage * 100) / data[0].total_points);
     }, 100);
   }, [percentage]);
 

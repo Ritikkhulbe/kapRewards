@@ -2,32 +2,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardComp from "./DashboardComp";
 import { cn } from "@/lib/utils";
 
-const tabs = [
-  {
-    name: "Overview",
-    element: <DashboardComp />,
-  },
-];
-
-const DashboardHeader = () => {
+const DashboardHeader = ({ data }: { data: any }) => {
   return (
     <div>
-      <Tabs defaultValue={tabs[0].name}>
+      <Tabs defaultValue="Overview">
         <div className="flex justify-between">
           <TabsList>
-            {tabs.map((tab, index) => (
-              <TabsTrigger
-                value={tab.name}
-                key={index}
-                className={cn(
-                  "first:rounded-l-cs", // Rounded left for the first tab
-                  "last:rounded-r-cs", // Rounded right for the last tab
-                  "border-fourth border font-medium px-[20px] py-[6px] text-textsecondary text-[12px]"
-                )}
-              >
-                {tab.name}
-              </TabsTrigger>
-            ))}
+            <TabsTrigger
+              value="Overview"
+              className={cn(
+                "first:rounded-l-cs", // Rounded left for the first tab
+                "last:rounded-r-cs", // Rounded right for the last tab
+                "border-fourth border font-medium px-[20px] py-[6px] text-textsecondary text-[12px]"
+              )}
+            >
+              Overview
+            </TabsTrigger>
           </TabsList>
           <div className="flex">
             <span className="text-[#373C43] flex flex-wrap w-[250px] p-2 bg-fourth text-[14px] font-semibold">
@@ -40,11 +30,9 @@ const DashboardHeader = () => {
             />
           </div>
         </div>
-        {tabs.map((tab, index) => (
-          <TabsContent value={tab.name} key={index}>
-            {tab.element}
-          </TabsContent>
-        ))}
+        <TabsContent value="Overview">
+          <DashboardComp data={data} />
+        </TabsContent>
       </Tabs>
     </div>
   );
