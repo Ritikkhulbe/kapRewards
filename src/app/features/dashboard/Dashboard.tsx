@@ -20,15 +20,9 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          "https://demokapairlines.kapturecrm.com/ms/ticketcustomer-kafka/noauth/reward/184607",
-          {}, // Include the request body if required
-          {
-            headers: {
-              Cookie:
-                "_KAPTURECRM_SESSION=ur23d3zmmlnimda319ossnigol184607ur23d3zmml74ftjpccr1; JSESSIONID=EDBB96803345423627D84EC460B437F4; JSESSIONRID=3SDmlhjtZ1s2DmlhjtZ; JSESSIONID=AA2541340F08659485877C3A88649C07; JSESSIONID=F64E90D94C3DCE812AF6B8CE2B36B2E6; JSESSIONRID=3SDmlhjtZ1s2DmlhjtZ",
-            },
-          }
+          "https://kaprewards.onrender.com/rewards/get?cmId=1&empId=1"
         );
+        console.log(response);
         setData(response.data);
       } catch (error: any) {
         setError(error);
