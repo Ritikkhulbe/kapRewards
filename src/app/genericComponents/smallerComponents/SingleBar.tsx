@@ -7,7 +7,7 @@ const SingleBar = ({
 }: {
   title: string;
   percentage?: number;
-  data: any;
+  data?: any;
 }) => {
   const [currentPercentage, setCurrentPercentage] = useState(0);
 
