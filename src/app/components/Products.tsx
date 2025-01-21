@@ -1,5 +1,11 @@
 import { withPublicUrl } from "@/util";
 import { useNavigate } from "react-router-dom";
+import earbuds from "../assets/ImageFolder/earbuds.jpg";
+import mouse from "../assets/ImageFolder/mouse.jpg";
+import phone from "../assets/ImageFolder/phone.jpg";
+import tablet from "../assets/ImageFolder/tablet.jpg";
+import tracker from "../assets/ImageFolder/tracker.jpg";
+import watch from "../assets/ImageFolder/watch.jpg";
 
 interface Product {
   name: string;
@@ -12,52 +18,49 @@ interface Product {
 const ProductPage = () => {
   const navigate = useNavigate();
 
-  const employeePoints = 1000; // Replace with dynamic value as needed.
+  const employeePoints = 1500;
 
   const sampleProducts: any[] = [
     {
       name: "Wireless Headphones",
       image:
-        "https://plus.unsplash.com/premium_photo-1684529265466-38a66d9e9092?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+       earbuds,
       points: 500,
       rating: 4,
     },
     {
       name: "Smart Watch",
-      image:
-        "https://plus.unsplash.com/premium_photo-1684529265466-38a66d9e9092?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:watch,
       points: 1000,
       rating: 1,
     },
     {
       name: "Gaming Mouse",
-      image: "https://via.placeholder.com/150/FFD700/FFFFFF?text=Gaming+Mouse",
+      image: mouse,
       points: 300,
       rating: 4,
     },
     {
       name: "Fitness Tracker",
-      image:
-        "https://via.placeholder.com/150/FF4500/FFFFFF?text=Fitness+Tracker",
-      points: 800,
+      image: tracker,
+      points: 900,
       rating: 5,
     },
     {
       name: "Bluetooth Speaker",
-      image:
-        "https://via.placeholder.com/150/9370DB/FFFFFF?text=Bluetooth+Speaker",
+      image: earbuds,
       points: 600,
       rating: 4,
     },
     {
       name: "Tablet",
-      image: "https://via.placeholder.com/150/48D1CC/FFFFFF?text=Tablet",
-      points: 1500,
+      image: tablet,
+      points: 3000,
       rating: 5,
     },
     {
       name: "Mobile",
-      image: "https://via.placeholder.com/150/48D1CC/FFFFFF?text=Tablet",
+      image: phone,
       points: 1500,
       rating: 4,
     },
@@ -97,7 +100,7 @@ const ProductPage = () => {
             flexDirection: "column",
           }}
         >
-          <p style={{ fontSize: "1.5rem", margin: "0" }}>Mohit Kumar Shaw</p>
+          <p style={{ fontSize: "1.5rem", margin: "0" }}>Mohit Shaw</p>
           <p style={{ fontSize: "1.5rem", margin: "0" }}>
             Total Points: {employeePoints}
           </p>

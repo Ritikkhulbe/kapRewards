@@ -1,4 +1,10 @@
 import { useLocation } from "react-router-dom";
+import earbuds from "../assets/ImageFolder/earbuds.jpg";
+import mouse from "../assets/ImageFolder/mouse.jpg";
+import phone from "../assets/ImageFolder/phone.jpg";
+import tablet from "../assets/ImageFolder/tablet.jpg";
+import tracker from "../assets/ImageFolder/tracker.jpg";
+import watch from "../assets/ImageFolder/watch.jpg";
 
 interface Product {
   name: string;
@@ -13,38 +19,50 @@ const OrderPage = () => {
   const { state } = location;
   const selectedProduct = state as Product;
 
-  const sampleProducts: any[] = [
+  const sampleProducts: Product[] = [
     {
       name: "Wireless Headphones",
-      image: "https://via.placeholder.com/150/1E90FF/FFFFFF?text=Headphones",
+      image: earbuds,
       points: 500,
+      rating: 4.5,
+      description: "High-quality wireless headphones with noise cancellation.",
     },
     {
       name: "Smart Watch",
-      image: "https://via.placeholder.com/150/32CD32/FFFFFF?text=Smart+Watch",
+      image: watch,
       points: 1000,
+      rating: 4.7,
+      description: "Track your fitness and stay connected with this smart watch.",
     },
     {
       name: "Gaming Mouse",
-      image: "https://via.placeholder.com/150/FFD700/FFFFFF?text=Gaming+Mouse",
+      image: mouse,
       points: 300,
+      rating: 4.4,
+      description: "Ergonomic gaming mouse with customizable buttons.",
     },
     {
-      name: "Wireless Headphones",
-      image: "https://via.placeholder.com/150/1E90FF/FFFFFF?text=Headphones",
-      points: 500,
+      name: "Phone",
+      image: phone,
+      points: 600,
+      rating: 4.6,
+      description: "Sleek and powerful smartphone with amazing camera quality.",
     },
     {
-      name: "Smart Watch",
-      image: "https://via.placeholder.com/150/32CD32/FFFFFF?text=Smart+Watch",
-      points: 1000,
+      name: "Tablet",
+      image: tablet,
+      points: 3000,
+      rating: 4.8,
+      description: "High-resolution tablet, perfect for work and play.",
     },
     {
-      name: "Gaming Mouse",
-      image: "https://via.placeholder.com/150/FFD700/FFFFFF?text=Gaming+Mouse",
-      points: 300,
+      name: "Tracker",
+      image: tracker,
+      points: 900,
+      rating: 4.3,
+      description: "Keep track of your daily activity with this fitness tracker.",
     },
-  ]; // Add more sample products here
+  ];
 
   const handleEmail = () => {
     const subject = `Order Request for ${selectedProduct.name}`;
@@ -57,64 +75,64 @@ const OrderPage = () => {
     window.location.href = `mailto:finance@company.com?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
-    window.location.href = `mailto:finance@company.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
   };
 
   return (
     <div
       style={{
-        display: "flex",
-        fontFamily: "Arial, sans-serif",
-        margin: "20px",
-        color: "#333",
+        display: "grid",
+        gridTemplateColumns: "1fr 2fr",
+        fontFamily: "'Roboto', Arial, sans-serif",
+        gap: "30px",
+        padding: "40px",
+        backgroundColor: "#f0f4f8",
+        minHeight: "100vh",
       }}
     >
-      {/* Left Sidebar */}
+      {/* Sidebar */}
       <div
         style={{
-          width: "30%",
-          borderRight: "1px solid #ddd",
-          padding: "20px",
-          overflowY: "auto",
-          boxShadow: "2px 0px 8px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#ffffff",
+          padding: "25px",
+          borderRadius: "15px",
+          boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
         }}
       >
         <h2
-          style={{ fontSize: "1.5rem", marginBottom: "10px", color: "#4caf50" }}
+          style={{
+            fontSize: "1.8rem",
+            marginBottom: "20px",
+            color: "#2c7be5",
+            borderBottom: "3px solid #2c7be5",
+            paddingBottom: "5px",
+          }}
         >
           Available Products
         </h2>
-        <div style={{ display: "grid", gap: "10px" }}>
-        <h2
-          style={{ fontSize: "1.5rem", marginBottom: "10px", color: "#4caf50" }}
-        >
-          Available Products
-        </h2>
-        <div style={{ display: "grid", gap: "10px" }}>
+        <div style={{ display: "grid", gap: "20px" }}>
           {sampleProducts.map((product, index) => (
             <div
               key={index}
               style={{
                 display: "flex",
                 alignItems: "center",
-                padding: "10px",
+                padding: "15px",
                 border: "1px solid #ddd",
-                borderRadius: "10px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                backgroundColor: "#fff",
+                borderRadius: "12px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                backgroundColor: "#ffffff",
+                transition: "transform 0.2s, box-shadow 0.2s",
               }}
             >
               <img
                 src={product.image}
                 alt={product.name}
                 style={{
-                  width: "50px",
-                  height: "50px",
+                  width: "60px",
+                  height: "60px",
                   objectFit: "cover",
-                  borderRadius: "5px",
-                  marginRight: "10px",
+                  borderRadius: "8px",
+                  marginRight: "15px",
                 }}
               />
               <div>
@@ -138,17 +156,23 @@ const OrderPage = () => {
       </div>
 
       {/* Main Content */}
-      <div style={{ width: "70%", padding: "20px" }}>
-      <div style={{ width: "70%", padding: "20px" }}>
+      <div
+        style={{
+          backgroundColor: "#ffffff",
+          padding: "30px",
+          borderRadius: "15px",
+          boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <header
           style={{
-            backgroundColor: "#4caf50",
+            backgroundColor: "#2c7be5",
             color: "white",
             padding: "20px",
             textAlign: "center",
-            borderRadius: "10px",
-            marginBottom: "20px",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            borderRadius: "12px",
+            marginBottom: "30px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
           }}
         >
           <h1 style={{ fontSize: "2rem", margin: "0" }}>Order Product</h1>
@@ -157,11 +181,11 @@ const OrderPage = () => {
         <div
           style={{
             textAlign: "center",
-            border: "2px solid #ddd",
+            border: "1px solid #ddd",
             borderRadius: "15px",
-            padding: "20px",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-            backgroundColor: "#fff",
+            padding: "30px",
+            boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "#ffffff",
           }}
         >
           <img
@@ -169,46 +193,65 @@ const OrderPage = () => {
             alt={selectedProduct.name}
             style={{
               width: "100%",
-              maxWidth: "300px",
+              maxWidth: "400px",
               height: "auto",
-              borderRadius: "10px",
-              marginBottom: "15px",
+              borderRadius: "12px",
+              marginBottom: "20px",
             }}
           />
           <h2
-            style={{ marginBottom: "10px", fontSize: "1.5rem", color: "#333" }}
+            style={{
+              marginBottom: "10px",
+              fontSize: "1.8rem",
+              color: "#333",
+              fontWeight: "bold",
+            }}
           >
             {selectedProduct.name}
           </h2>
-          <p style={{ margin: "5px 0", fontSize: "1.2rem", color: "#666" }}>
+          <p style={{ margin: "10px 0", fontSize: "1.2rem", color: "#666" }}>
             Points Required: {selectedProduct.points}
+          </p>
+          <p
+            style={{
+              margin: "20px 0",
+              fontSize: "1rem",
+              color: "#555",
+              lineHeight: "1.6",
+            }}
+          >
+            {selectedProduct.description}
           </p>
           <button
             onClick={handleEmail}
             style={{
-              backgroundColor: "#4caf50",
+              backgroundColor: "#2c7be5",
               color: "white",
-              padding: "10px 20px",
+              padding: "15px 30px",
               border: "none",
-              borderRadius: "5px",
+              borderRadius: "8px",
               cursor: "pointer",
               fontSize: "1rem",
-              marginTop: "20px",
-              transition: "background-color 0.3s",
+              marginTop: "25px",
+              transition: "background-color 0.3s, transform 0.2s",
             }}
             onMouseOver={(e) =>
-              (e.currentTarget.style.backgroundColor = "#45a049")
+              (e.currentTarget.style.backgroundColor = "#255bb4")
             }
             onMouseOut={(e) =>
-              (e.currentTarget.style.backgroundColor = "#4caf50")
+              (e.currentTarget.style.backgroundColor = "#2c7be5")
+            }
+            onMouseDown={(e) =>
+              (e.currentTarget.style.transform = "scale(0.98)")
+            }
+            onMouseUp={(e) =>
+              (e.currentTarget.style.transform = "scale(1)")
             }
           >
-            Send Email to Finance Team
+            Place Order
           </button>
         </div>
       </div>
-    </div>
-    </div>
     </div>
   );
 };
