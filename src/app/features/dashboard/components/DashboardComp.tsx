@@ -9,6 +9,7 @@ import { API_URL_GET } from "@/constants";
 type WeeklyRecord = { reward: number };
 type LeaderBoardItem = { agent_name: string; total_points: number };
 type ApiResponse = {
+  agent_name: string;
   reward_point: number;
   passed_tickets: number;
   failed_tickets: number;
@@ -32,23 +33,17 @@ const DashboardComp = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          API_URL_GET
-        );
+        const response = await fetch(API_URL_GET);
         const data: ApiResponse = await response.json();
 
         setRewardPoint(data.reward_point);
         setPassedTickets(data.passed_tickets);
         setTickets(data.passed_tickets + data.failed_tickets);
 
-        if (data.leader_board_details.leader_board_live.length > 0) {
-          setCurrentUser(
-            data.leader_board_details.leader_board_live[0].agent_name
-          );
-        }
+        setCurrentUser(data.agent_name);
 
-        setLeaderboardLive(data.leader_board_details.leader_board_live);
-        setLeaderboardPast(data.leader_board_details.leader_board_past);
+        setLeaderboardLive(data?.leader_board_details.leader_board_live);
+        setLeaderboardPast(data?.leader_board_details.leader_board_past);
 
         setLoading(false);
       } catch (error) {

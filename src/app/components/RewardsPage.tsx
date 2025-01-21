@@ -1,4 +1,4 @@
-import React from "react";
+import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cashRewardsImage from "../assets/ImageFolder/cash_reward.png";
 import planeRewawrdsImage from "../assets/ImageFolder/plane_rewards.jpg";
@@ -6,10 +6,25 @@ import tripRewardsImage from "../assets/ImageFolder/trip_rewards.jpg";
 import giftRewardsImage from "../assets/ImageFolder/gift_reward.png";
 import wellnessRewardsImage from "../assets/ImageFolder/wellness_rewards.jpg";
 import onlineShoppingRewardsImage from "../assets/ImageFolder/shopping.jpg";
+import { API_URL_GET } from "@/constants";
 
-const RewardsPage = ({ name = "Dhananjai", rewardPoints = "1500" }) => {
+const RewardsPage = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [rewardPoints, setRewardsPoints] = useState(0);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(API_URL_GET);
+
+      const data = await response.json();
+
+      setName(data.agent_name);
+      setRewardsPoints(data.reward_point);
+    };
+
+    fetchData();
+  }, []);
   const rewards = [
     {
       title: "Flight Tickets",
@@ -74,8 +89,11 @@ const RewardsPage = ({ name = "Dhananjai", rewardPoints = "1500" }) => {
         <h1 style={{ fontSize: "2.5rem", margin: "0", fontWeight: "bold" }}>
           Welcome, {name}!
         </h1>
-        <h2 style={{ fontSize: "1.5rem", margin: "10px 0 0", fontWeight: "300" }}>
-          You have <span style={{ color: "#ffcc00" }}>{rewardPoints}</span> reward points
+        <h2
+          style={{ fontSize: "1.5rem", margin: "10px 0 0", fontWeight: "300" }}
+        >
+          You have <span style={{ color: "#ffcc00" }}>{rewardPoints}</span>{" "}
+          reward points
         </h2>
       </header>
 

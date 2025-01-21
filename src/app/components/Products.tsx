@@ -6,31 +6,46 @@ import phone from "../assets/ImageFolder/phone.jpg";
 import tablet from "../assets/ImageFolder/tablet.jpg";
 import tracker from "../assets/ImageFolder/tracker.jpg";
 import watch from "../assets/ImageFolder/watch.jpg";
+import { useEffect, useState } from "react";
+import { API_URL_GET } from "@/constants";
 
 interface Product {
   name: string;
   image: string;
   points: number;
   rating: number;
-  description : string;
+  description: string;
 }
 
 const ProductPage = () => {
   const navigate = useNavigate();
 
-  const employeePoints = 1500;
+  const [name, setName] = useState("");
+  const [employeePoints, setRewardsPoints] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(API_URL_GET);
+
+      const data = await response.json();
+
+      setName(data.agent_name);
+      setRewardsPoints(data.reward_point);
+    };
+
+    fetchData();
+  }, []);
 
   const sampleProducts: any[] = [
     {
       name: "Wireless Headphones",
-      image:
-       earbuds,
+      image: earbuds,
       points: 500,
       rating: 4,
     },
     {
       name: "Smart Watch",
-      image:watch,
+      image: watch,
       points: 1000,
       rating: 1,
     },
@@ -100,7 +115,7 @@ const ProductPage = () => {
             flexDirection: "column",
           }}
         >
-          <p style={{ fontSize: "1.5rem", margin: "0" }}>Mohit Shaw</p>
+          <p style={{ fontSize: "1.5rem", margin: "0" }}>{name}</p>
           <p style={{ fontSize: "1.5rem", margin: "0" }}>
             Total Points: {employeePoints}
           </p>

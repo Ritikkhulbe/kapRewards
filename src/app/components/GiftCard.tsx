@@ -17,7 +17,7 @@ const generateUniqueCode = (): string => {
 // Component
 const GiftCardPage = () => {
   const [voucherCode, setVoucherCode] = useState<string | null>(null);
-  const [points, setPoints] = useState<number>(1500);
+  const [points, setPoints] = useState<number>(1450);
   // Gift Card Options
   const giftCards = [
     { value: 100, label: "Gift Card $100", image: giftRewardsImage },

@@ -8,7 +8,6 @@ import scorecardRoutes from "@/app/features/scorecards/scorecardRoutes";
 import RewardsPage from "@/app/components/RewardsPage";
 import GiftNotification from "@/app/components/GiftNotification";
 import CoachingIcon from "@/app/assets/icons/CoachingIcon";
-import Products from "@/app/components/Products";
 
 interface RouteConfig {
   path: string;
@@ -42,12 +41,6 @@ const routesConfig: RouteConfig[] = [
     title: "Card",
     icon: CoachingIcon,
   },
-  {
-    path: "/product/*",
-    element: Products,
-    title: "Card",
-    icon: CoachingIcon,
-  }
 
 ];
 
