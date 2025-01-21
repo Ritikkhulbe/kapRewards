@@ -26,7 +26,6 @@ const RewardsPage = ({ name = "Dhananjai", rewardPoints = "1500" }) => {
       title: "Gift Cards",
       image: giftRewardsImage,
       route: "/giftCard",
-      route: "/giftCard",
     },
     {
       title: "Cash Rewards",
