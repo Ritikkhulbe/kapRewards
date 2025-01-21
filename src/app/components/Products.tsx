@@ -18,7 +18,7 @@ interface Product {
 const ProductPage = () => {
   const navigate = useNavigate();
 
-  const employeePoints = 1500;
+  const employeePoints = 1450;
 
   const sampleProducts: any[] = [
     {

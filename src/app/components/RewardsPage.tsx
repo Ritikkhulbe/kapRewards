@@ -7,7 +7,7 @@ import giftRewardsImage from "../assets/ImageFolder/gift_reward.png";
 import wellnessRewardsImage from "../assets/ImageFolder/wellness_rewards.jpg";
 import onlineShoppingRewardsImage from "../assets/ImageFolder/shopping.jpg";
 
-const RewardsPage = ({ name = "Dhananjai", rewardPoints = "1500" }) => {
+const RewardsPage = ({ name = "Dhananjai", rewardPoints = "1450" }) => {
   const navigate = useNavigate();
 
   const rewards = [
