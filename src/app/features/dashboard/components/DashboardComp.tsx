@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactECharts, ReactEChartsProps } from "@/app/components/ReactEchart";
 import { SmallCard } from "@/app/genericComponents/GenericCards";
 import { Card } from "@/components/ui/card";
@@ -22,7 +22,6 @@ const DashboardComp = () => {
   const [currentUser, setCurrentUser] = useState<string>("Ritik");
   const [leaderboardLive, setLeaderboardLive] = useState<LeaderBoardItem[]>([]);
   const [leaderboardPast, setLeaderboardPast] = useState<LeaderBoardItem[]>([]);
-  const [weeklyData, setWeeklyData] = useState<[string, number][]>([]);
   const [rewardPoint, setRewardPoint] = useState<number>(0);
   const [passedTickets, setPassedTickets] = useState<number>(0);
   const [tickets, setTickets] = useState<number>(0);
@@ -48,11 +47,6 @@ const DashboardComp = () => {
         setLeaderboardLive(data.leader_board_details.leader_board_live);
         setLeaderboardPast(data.leader_board_details.leader_board_past);
 
-        const formattedWeeklyData: [string, number][] = Object.entries(
-          data.weekly_records
-        ).map(([date, record]) => [date, record.reward]);
-
-        setWeeklyData(formattedWeeklyData);
         setLoading(false);
       } catch (error) {
         setError("Error fetching data. Please try again later.");
@@ -92,11 +86,11 @@ const DashboardComp = () => {
       },
     },
     legend: {
-    data: ["Current Week", "Last Week"],
+      data: ["Current Week", "Last Week"],
       bottom: 0,
-    lineStyle: {
-      color: "#fff",
-    },
+      lineStyle: {
+        color: "#fff",
+      },
     },
     grid: {
       left: "5%",
@@ -110,9 +104,9 @@ const DashboardComp = () => {
     yAxis: {
       type: "value",
       splitLine: {
-      onZero: false,
+        onZero: false,
         lineStyle: {
-        width: 2,
+          width: 2,
           type: "dashed",
           opacity: 0.3,
         },
@@ -121,43 +115,54 @@ const DashboardComp = () => {
     series: [
       {
         type: "line",
-      label: {
-        show: false,
+        label: {
+          show: false,
+        },
+        smooth: true,
+        symbol: "none",
       },
-      smooth: true,
-      symbol: "none",
-    },
-    {
-      type: "line",
-      label: {
-        show: false,
-      },
+      {
+        type: "line",
+        label: {
+          show: false,
+        },
         smooth: true,
         symbol: "none",
       },
     ],
   };
 
-  const SingleBar = ({ title, points, percentage }) => {
+  const SingleBar = ({ title, points, percentage }: { title: string, points: number, percentage: number }) => {
     // Determine the progress color based on percentage ranges of 50
     const progressColor =
-    percentage > 90
-      ? "bg-blue-500" // Above 100%
-      : percentage > 75
-      ? "bg-green-500" // Between 76% and 100%
-      : percentage > 50
-      ? "bg-yellow-500" // Between 51% and 75%
-      : percentage > 25
-      ? "bg-orange-400" // Between 26% and 50%
-      : "bg-red-500"; // 25% or less
-  
+      percentage > 90
+        ? "bg-blue-500" // Above 100%
+        : percentage > 75
+          ? "bg-green-500" // Between 76% and 100%
+          : percentage > 50
+            ? "bg-yellow-500" // Between 51% and 75%
+            : percentage > 25
+              ? "bg-orange-400" // Between 26% and 50%
+              : "bg-red-500"; // 25% or less
+
+    const progressBGColor =
+              percentage > 90
+                ? "bg-blue-50" // Above 100%
+                : percentage > 75
+                  ? "bg-green-50" // Between 76% and 100%
+                  : percentage > 50
+                    ? "bg-yellow-50" // Between 51% and 75%
+                    : percentage > 25
+                      ? "bg-orange-50" // Between 26% and 50%
+                      : "bg-red-50"; // 25% or less
+
     return (
       <div className="flex flex-col w-full">
         <div className="flex justify-between items-center mb-1">
           <span className="text-sm font-medium text-gray-700">{title}</span>
           <span className="text-sm font-medium text-gray-700">{points}</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-4">
+        <div className={`w-full rounded-full h-4 ${progressBGColor}`}>
           <div
             className={`h-4 rounded-full ${progressColor}`}
             style={{ width: `${percentage}%` }}
@@ -174,23 +179,22 @@ const DashboardComp = () => {
   return (
     <div className="bg-gradient-to-r min-h-screen flex flex-col justify-between">
       <div>
-        <h1 className="text-2xl font-bold text-center mb-6">Your Contribution Matters!</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="col-span-2">
             <div className="flex justify-between mb-4">
+              <SmallCard title="Tickets Handled" number={`${tickets}`} />
               <SmallCard
                 title="Tickets Resolved"
-                number={`🏆 ${passedTickets} Tickets Resolved`}
+                number={` ${passedTickets}`}
                 subtitle="Every resolved ticket is a step closer to delighting our customers. Keep up the great work!"
               />
-              <SmallCard title="Tickets Handled" number={`${tickets} Tickets Handled`} />
               <SmallCard
                 title="Points Earned So Far"
-                number={`${rewardPoint}`}
+                number={`🏆 ${rewardPoint}`}
                 subtitle="Your dedication has earned you these reward points. Amazing effort!"
               />
             </div>
-  
+
             <Card className="font-light text-[14px] text-textsecondary-light h-[50vh] p-3 w-full bg-primary border-2 border-gray-400">
               {loading ? (
                 <p>Loading chart...</p>
@@ -201,7 +205,7 @@ const DashboardComp = () => {
               )}
             </Card>
           </div>
-  
+
           <div className="col-span-1">
             <Card className="w-full h-full bg-white p-4 border-2 border-gray-400">
               <h2 className="font-bold text-2xl mb-4">Leaderboard</h2>
@@ -257,7 +261,7 @@ const DashboardComp = () => {
                             item.total_points,
                             Math.max(...leaderboardPast.map((leader) => leader.total_points))
                           )
-                        }
+                          }
                         />
                       </div>
                     ))}
@@ -268,15 +272,15 @@ const DashboardComp = () => {
           </div>
         </div>
       </div>
-  
+
       <footer className="mt-6 bg-gradient-to-r from-indigo-500 text-white text-center py-4">
         <p className="text-lg font-semibold">
-          Great achievements are never accomplished alone. 
+          Great achievements are never accomplished alone.
           <span className="font-bold"> Thank you for being the spark that ignites success!</span>
         </p>
       </footer>
     </div>
-  );  
+  );
 };
 
 export default DashboardComp;

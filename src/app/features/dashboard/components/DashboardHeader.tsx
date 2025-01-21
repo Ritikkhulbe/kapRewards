@@ -34,8 +34,8 @@ const DashboardHeader = () => {
   return (
     <div>
       <Tabs defaultValue={tabs[0].name}>
-        <div className="flex justify-between">
-          <TabsList>
+        <div className="flex justify-between items-center">
+          <TabsList className="h-full border">
             {tabs.map((tab, index) => (
               <TabsTrigger
                 value={tab.name}
@@ -43,15 +43,17 @@ const DashboardHeader = () => {
                 className={cn(
                   "first:rounded-l-cs", 
                   "last:rounded-r-cs",
-                  "border-fourth border font-medium px-[20px] py-[6px] text-textsecondary text-[12px]"
+                  "border-fourth border font-medium px-[20px] h-full py-[6px] text-textsecondary text-[12px]"
                 )}
               >
                 {tab.name}
               </TabsTrigger>
             ))}
           </TabsList>
-          <div className="flex">
-            <span className="text-[#373C43] flex flex-wrap w-[250px] p-2 bg-fourth text-[14px] font-semibold">
+
+        <h1 className="text-2xl font-bold text-center my-6">Your Contribution Matters!</h1>
+          <div className="flex items-center">
+            <span className="text-[#373C43] flex flex-wrap w-[300px] p-2 bg-fourth text-[14px] font-semibold">
               {/* Dynamically displaying the fetched name and reward */}
               {name ? `${name}, you are just 100 Reward points away from your target` : "Loading..."}
             </span>
