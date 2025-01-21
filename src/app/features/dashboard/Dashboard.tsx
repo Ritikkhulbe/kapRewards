@@ -10,10 +10,11 @@ import dashboardSlice from "./store/slice/dashboardSlice";
 import { useAppDispatch } from "@/store/hooks";
 import { exampleAction } from "./store/actions/exampleAction";
 import DashboardHeader from "./components/DashboardHeader";
+import { API_URL_GET } from "@/constants";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
-  
+
   // State for storing API data
   const [name, setName] = useState<string>("");
   const [reward, setReward] = useState<number>(0);
@@ -25,9 +26,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://run.mocky.io/v3/28886a1b-2e3c-4314-8b76-08627a3d750a"
-        );
+        const response = await fetch(API_URL_GET);
         const data = await response.json();
         // Extract name and reward from the API response
         setName(data.agent_name);

@@ -4,6 +4,7 @@ import { SmallCard } from "@/app/genericComponents/GenericCards";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { API_URL_GET } from "@/constants";
 
 type WeeklyRecord = { reward: number };
 type LeaderBoardItem = { agent_name: string; total_points: number };
@@ -32,7 +33,7 @@ const DashboardComp = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://run.mocky.io/v3/28886a1b-2e3c-4314-8b76-08627a3d750a"
+          API_URL_GET
         );
         const data: ApiResponse = await response.json();
 
@@ -41,7 +42,9 @@ const DashboardComp = () => {
         setTickets(data.passed_tickets + data.failed_tickets);
 
         if (data.leader_board_details.leader_board_live.length > 0) {
-          setCurrentUser(data.leader_board_details.leader_board_live[0].agent_name);
+          setCurrentUser(
+            data.leader_board_details.leader_board_live[0].agent_name
+          );
         }
 
         setLeaderboardLive(data.leader_board_details.leader_board_live);
@@ -132,29 +135,37 @@ const DashboardComp = () => {
     ],
   };
 
-  const SingleBar = ({ title, points, percentage }: { title: string, points: number, percentage: number }) => {
+  const SingleBar = ({
+    title,
+    points,
+    percentage,
+  }: {
+    title: string;
+    points: number;
+    percentage: number;
+  }) => {
     // Determine the progress color based on percentage ranges of 50
     const progressColor =
       percentage > 90
         ? "bg-blue-500" // Above 100%
         : percentage > 75
-          ? "bg-green-500" // Between 76% and 100%
-          : percentage > 50
-            ? "bg-yellow-500" // Between 51% and 75%
-            : percentage > 25
-              ? "bg-orange-400" // Between 26% and 50%
-              : "bg-red-500"; // 25% or less
+        ? "bg-green-500" // Between 76% and 100%
+        : percentage > 50
+        ? "bg-yellow-500" // Between 51% and 75%
+        : percentage > 25
+        ? "bg-orange-400" // Between 26% and 50%
+        : "bg-red-500"; // 25% or less
 
     const progressBGColor =
-              percentage > 90
-                ? "bg-blue-50" // Above 100%
-                : percentage > 75
-                  ? "bg-green-50" // Between 76% and 100%
-                  : percentage > 50
-                    ? "bg-yellow-50" // Between 51% and 75%
-                    : percentage > 25
-                      ? "bg-orange-50" // Between 26% and 50%
-                      : "bg-red-50"; // 25% or less
+      percentage > 90
+        ? "bg-blue-50" // Above 100%
+        : percentage > 75
+        ? "bg-green-50" // Between 76% and 100%
+        : percentage > 50
+        ? "bg-yellow-50" // Between 51% and 75%
+        : percentage > 25
+        ? "bg-orange-50" // Between 26% and 50%
+        : "bg-red-50"; // 25% or less
 
     return (
       <div className="flex flex-col w-full">
@@ -177,7 +188,7 @@ const DashboardComp = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r min-h-screen flex flex-col justify-between">
+    <div className="bg-gradient-to-r flex flex-col justify-between">
       <div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="col-span-2">
@@ -219,7 +230,7 @@ const DashboardComp = () => {
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="Live">
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2  h-[50vh] overflow-y-scroll">
                     {leaderboardLive.map((item, index) => (
                       <div
                         key={index}
@@ -235,7 +246,11 @@ const DashboardComp = () => {
                           points={item.total_points}
                           percentage={calculatePercentage(
                             item.total_points,
-                            Math.max(...leaderboardLive.map((leader) => leader.total_points))
+                            Math.max(
+                              ...leaderboardLive.map(
+                                (leader) => leader.total_points
+                              )
+                            )
                           )}
                         />
                       </div>
@@ -243,7 +258,7 @@ const DashboardComp = () => {
                   </div>
                 </TabsContent>
                 <TabsContent value="Last">
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 h-[50vh] overflow-y-scroll">
                     {leaderboardPast.map((item, index) => (
                       <div
                         key={index}
@@ -259,9 +274,12 @@ const DashboardComp = () => {
                           points={item.total_points}
                           percentage={calculatePercentage(
                             item.total_points,
-                            Math.max(...leaderboardPast.map((leader) => leader.total_points))
-                          )
-                          }
+                            Math.max(
+                              ...leaderboardPast.map(
+                                (leader) => leader.total_points
+                              )
+                            )
+                          )}
                         />
                       </div>
                     ))}
@@ -276,7 +294,10 @@ const DashboardComp = () => {
       <footer className="mt-6 bg-gradient-to-r from-indigo-500 text-white text-center py-4">
         <p className="text-lg font-semibold">
           Great achievements are never accomplished alone.
-          <span className="font-bold"> Thank you for being the spark that ignites success!</span>
+          <span className="font-bold">
+            {" "}
+            Thank you for being the spark that ignites success!
+          </span>
         </p>
       </footer>
     </div>
