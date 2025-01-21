@@ -1,243 +1,285 @@
+import { useEffect, useState } from "react";
 import { ReactECharts, ReactEChartsProps } from "@/app/components/ReactEchart";
 import { SmallCard } from "@/app/genericComponents/GenericCards";
-import SingleBar from "@/app/genericComponents/smallerComponents/SingleBar";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
-//auto vs manual qa graph
-const option: ReactEChartsProps["option"] | any = {
-  dataset: {
-    source: [
-      ["Week", "Current Week", "Last Week"],
-      ["Monday", 42, 14],
-      ["Tuesday", 23, 21],
-      ["Wednesday", 23, 46],
-      ["Thursday", 45, 21],
-      ["Friday", 33, 25],
-      ["Saturday", 32, 16],
-    ],
-  },
-  title: {
-    text: "Current Week vs Last Week",
-    show: true,
-    textStyle: {
-      fontSize: "14px",
-      color: "#68717f",
-      fontWeight: "300",
-    },
-  },
-  tooltip: {
-    trigger: "axis",
-    axisPointer: {
-      type: "shadow",
-    },
-  },
-  legend: {
-    data: ["Current Week", "Last Week"],
-    bottom: 0,
-    lineStyle: {
-      color: "#fff",
-    },
-  },
-  grid: {
-    left: "5%",
-    right: "5%",
-    top: "20%",
-    bottom: "20%",
-  },
-  xAxis: {
-    type: "category",
-  },
-  yAxis: {
-    type: "value",
-    splitLine: {
-      onZero: false,
-      lineStyle: {
-        width: 2,
-        type: "dashed",
-        opacity: 0.3,
-      },
-    },
-  },
-  series: [
-    {
-      type: "line",
-      label: {
-        show: false,
-      },
-      smooth: true,
-      symbol: "none",
-    },
-    {
-      type: "line",
-      label: {
-        show: false,
-      },
-      smooth: true,
-      symbol: "none",
-    },
-  ],
+type WeeklyRecord = { reward: number };
+type LeaderBoardItem = { agent_name: string; total_points: number };
+type ApiResponse = {
+  reward_point: number;
+  passed_tickets: number;
+  failed_tickets: number;
+  weekly_records: Record<string, WeeklyRecord>;
+  leader_board_details: {
+    leader_board_live: LeaderBoardItem[];
+    leader_board_past: LeaderBoardItem[];
+  };
 };
 
-const Leaderboard = [
-  {
-    name: "Ritik",
-    value: 76,
-  },
-  {
-    name: "Mohit",
-    value: 56,
-  },
-  {
-    name: "Dhananjay",
-    value: 45,
-  },
-  {
-    name: "Rahul",
-    value: 34,
-  },
-  {
-    name: "Raj",
-    value: 23,
-  },
-  {
-    name: "Kavya",
-    value: 12,
-  },
-  {
-    name: "Rajat",
-    value: 1,
-  },
-];
-
-const Leaderboard2 = [
-  {
-    name: "Mohit",
-    value: 76,
-  },
-  {
-    name: "Ritik",
-    value: 45,
-  },
-  {
-    name: "Dhananjay",
-    value: 43,
-  },
-  {
-    name: "Rahul",
-    value: 34,
-  },
-  {
-    name: "Raj",
-    value: 33,
-  },
-  {
-    name: "Kavya",
-    value: 30,
-  },
-  {
-    name: "Rajat",
-    value: 12,
-  },
-];
-
-//channel breakdown graph
-
 const DashboardComp = () => {
-  const currentUser = "Ritik";
-  return (
-    <>
-    <div className="grid grid-cols-3">
-      <div className="w-full mt-1 col-span-2">
-        <div className="w-full flex justify-between mb-2">
-          <SmallCard
-            title="Total tickets handled"
-              number={"435"}
-            variant="up"
-            percentage={10}
-          />
-          <SmallCard
-            title="Total Successful tickets"
-              number={"243"}
-            variant="up"
-            percentage={14}
-          />
-          <SmallCard
-            title="Total Failed tickets"
-              number={"192"}
-            variant="down"
-            percentage={7}
-          />
-        </div>
-        <Card className=" font-light text-[14px] text-textsecondary-light h-[50vh] p-3 w-full mr-[1%] bg-primary">
-          <ReactECharts option={option} />
-        </Card>
-      </div>
-        <div className="w-full ml-2 mt-1 col-span-1 ">
-        <Card className="w-full h-[100%] bg-white p-4">
-            <span className=" font-bold text-[25px] w-[220%] mb-2">
-              Leaderboard
-            </span>
-          <Tabs defaultValue="Live" className="w-full mt-2">
-            <TabsList>
-              <TabsTrigger
-                value="Live"
-                  className={
-                    "rounded-l-cs border-fourth border font-semibold text-textsecondary-light px-4text-[16px]"
-                  }
-              >
-                Live
-              </TabsTrigger>
-              <TabsTrigger
-                value="Last"
-                  className={
-                    "rounded-r-cs border-fourth border font-semibold text-textsecondary-light px-4  text-[16px]"
-                  }
-              >
-                Last
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="Live" className="w-full">
-              <div className="flex flex-col w-full overflow-y-scroll justify-between">
-                  {Leaderboard.map((item:any, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                      "flex items-center w-full px-2 pb-1 ",
-                      item.emp_id === "415"
-                        ? "rounded-[6px] border-textsecondary-light border"
-                        : ""
-                    )}
-                  >
-                      <SingleBar title={item.name} percentage={item.value} />
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
+  const [currentUser, setCurrentUser] = useState<string>("Ritik");
+  const [leaderboardLive, setLeaderboardLive] = useState<LeaderBoardItem[]>([]);
+  const [leaderboardPast, setLeaderboardPast] = useState<LeaderBoardItem[]>([]);
+  const [rewardPoint, setRewardPoint] = useState<number>(0);
+  const [passedTickets, setPassedTickets] = useState<number>(0);
+  const [tickets, setTickets] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-            <TabsContent value="Last">
-              <div className="flex flex-col w-full overflow-y-scroll justify-between ">
-                  {Leaderboard2.map((item, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                        "flex items-center w-full  px-2  pb-1",
-                        item.name === currentUser
-                          ? "rounded-[6px] border border-textsecondary-light"
-                        : ""
-                    )}
-                  >
-                      <SingleBar title={item.name} percentage={item.value} />
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
-        </Card>
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://run.mocky.io/v3/28886a1b-2e3c-4314-8b76-08627a3d750a"
+        );
+        const data: ApiResponse = await response.json();
+
+        setRewardPoint(data.reward_point);
+        setPassedTickets(data.passed_tickets);
+        setTickets(data.passed_tickets + data.failed_tickets);
+
+        if (data.leader_board_details.leader_board_live.length > 0) {
+          setCurrentUser(data.leader_board_details.leader_board_live[0].agent_name);
+        }
+
+        setLeaderboardLive(data.leader_board_details.leader_board_live);
+        setLeaderboardPast(data.leader_board_details.leader_board_past);
+
+        setLoading(false);
+      } catch (error) {
+        setError("Error fetching data. Please try again later.");
+        setLoading(false);
+        console.error("Error fetching API data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const option: ReactEChartsProps["option"] | any = {
+    dataset: {
+      source: [
+        ["Week", "Current Week", "Last Week"],
+        ["Monday", 42, 14],
+        ["Tuesday", 23, 21],
+        ["Wednesday", 23, 46],
+        ["Thursday", 45, 21],
+        ["Friday", 33, 25],
+        ["Saturday", 32, 16],
+      ],
+    },
+    title: {
+      text: "Current Week vs Last Week",
+      show: true,
+      textStyle: {
+        fontSize: "14px",
+        color: "#68717f",
+        fontWeight: "300",
+      },
+    },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
+      },
+    },
+    legend: {
+      data: ["Current Week", "Last Week"],
+      bottom: 0,
+      lineStyle: {
+        color: "#fff",
+      },
+    },
+    grid: {
+      left: "5%",
+      right: "5%",
+      top: "20%",
+      bottom: "20%",
+    },
+    xAxis: {
+      type: "category",
+    },
+    yAxis: {
+      type: "value",
+      splitLine: {
+        onZero: false,
+        lineStyle: {
+          width: 2,
+          type: "dashed",
+          opacity: 0.3,
+        },
+      },
+    },
+    series: [
+      {
+        type: "line",
+        label: {
+          show: false,
+        },
+        smooth: true,
+        symbol: "none",
+      },
+      {
+        type: "line",
+        label: {
+          show: false,
+        },
+        smooth: true,
+        symbol: "none",
+      },
+    ],
+  };
+
+  const SingleBar = ({ title, points, percentage }: { title: string, points: number, percentage: number }) => {
+    // Determine the progress color based on percentage ranges of 50
+    const progressColor =
+      percentage > 90
+        ? "bg-blue-500" // Above 100%
+        : percentage > 75
+          ? "bg-green-500" // Between 76% and 100%
+          : percentage > 50
+            ? "bg-yellow-500" // Between 51% and 75%
+            : percentage > 25
+              ? "bg-orange-400" // Between 26% and 50%
+              : "bg-red-500"; // 25% or less
+
+    const progressBGColor =
+              percentage > 90
+                ? "bg-blue-50" // Above 100%
+                : percentage > 75
+                  ? "bg-green-50" // Between 76% and 100%
+                  : percentage > 50
+                    ? "bg-yellow-50" // Between 51% and 75%
+                    : percentage > 25
+                      ? "bg-orange-50" // Between 26% and 50%
+                      : "bg-red-50"; // 25% or less
+
+    return (
+      <div className="flex flex-col w-full">
+        <div className="flex justify-between items-center mb-1">
+          <span className="text-sm font-medium text-gray-700">{title}</span>
+          <span className="text-sm font-medium text-gray-700">{points}</span>
+        </div>
+        <div className={`w-full rounded-full h-4 ${progressBGColor}`}>
+          <div
+            className={`h-4 rounded-full ${progressColor}`}
+            style={{ width: `${percentage}%` }}
+          ></div>
+        </div>
       </div>
+    );
+  };
+
+  const calculatePercentage = (points: number, maxPoints: number) => {
+    return (points / maxPoints) * 100;
+  };
+
+  return (
+    <div className="bg-gradient-to-r min-h-screen flex flex-col justify-between">
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="col-span-2">
+            <div className="flex justify-between mb-4">
+              <SmallCard title="Tickets Handled" number={`${tickets}`} />
+              <SmallCard
+                title="Tickets Resolved"
+                number={` ${passedTickets}`}
+                subtitle="Every resolved ticket is a step closer to delighting our customers. Keep up the great work!"
+              />
+              <SmallCard
+                title="Points Earned So Far"
+                number={`🏆 ${rewardPoint}`}
+                subtitle="Your dedication has earned you these reward points. Amazing effort!"
+              />
+            </div>
+
+            <Card className="font-light text-[14px] text-textsecondary-light h-[50vh] p-3 w-full bg-primary border-2 border-gray-400">
+              {loading ? (
+                <p>Loading chart...</p>
+              ) : error ? (
+                <p>{error}</p>
+              ) : (
+                <ReactECharts option={option} />
+              )}
+            </Card>
+          </div>
+
+          <div className="col-span-1">
+            <Card className="w-full h-full bg-white p-4 border-2 border-gray-400">
+              <h2 className="font-bold text-2xl mb-4">Leaderboard</h2>
+              <Tabs defaultValue="Live" className="w-full">
+                <TabsList>
+                  <TabsTrigger value="Live" className="font-semibold px-4">
+                    Live
+                  </TabsTrigger>
+                  <TabsTrigger value="Last" className="font-semibold px-4">
+                    Last
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="Live">
+                  <div className="flex flex-col gap-2">
+                    {leaderboardLive.map((item, index) => (
+                      <div
+                        key={index}
+                        className={cn(
+                          "flex items-center w-full px-2 pb-1 border rounded-md border-gray-300",
+                          item.agent_name === currentUser
+                            ? "rounded-[6px] border-textsecondary-light border-2"
+                            : ""
+                        )}
+                      >
+                        <SingleBar
+                          title={item.agent_name}
+                          points={item.total_points}
+                          percentage={calculatePercentage(
+                            item.total_points,
+                            Math.max(...leaderboardLive.map((leader) => leader.total_points))
+                          )}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </TabsContent>
+                <TabsContent value="Last">
+                  <div className="flex flex-col gap-2">
+                    {leaderboardPast.map((item, index) => (
+                      <div
+                        key={index}
+                        className={cn(
+                          "flex items-center w-full px-2 pb-1",
+                          item.agent_name === currentUser
+                            ? "rounded-[6px] border border-textsecondary-light"
+                            : ""
+                        )}
+                      >
+                        <SingleBar
+                          title={item.agent_name}
+                          points={item.total_points}
+                          percentage={calculatePercentage(
+                            item.total_points,
+                            Math.max(...leaderboardPast.map((leader) => leader.total_points))
+                          )
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </Card>
+          </div>
+        </div>
+      </div>
+
+      <footer className="mt-6 bg-gradient-to-r from-indigo-500 text-white text-center py-4">
+        <p className="text-lg font-semibold">
+          Great achievements are never accomplished alone.
+          <span className="font-bold"> Thank you for being the spark that ignites success!</span>
+        </p>
+      </footer>
     </div>
-    </>
   );
 };
 

@@ -8,20 +8,24 @@ const SmallCard = ({
   title,
   number,
   percentage,
+  subtitle,
   variant = "up",
 }: {
   title: string;
   number: string;
-  percentage?: Number;
+  percentage?: number;
+  subtitle?:string;
   variant?: "up" | "down";
 }) => {
-  var classes;
+  let classes;
 
   if (variant === "up") {
     classes = "text-[#159A5C] border-[#9CDFC0] bg-[#ECFDF3]";
   } else {
     classes = "text-red-400 bg-red-50 border-red-400";
   }
+
+  console.log(subtitle)
 
   return (
     <Card className="px-6 py-6 w-[32.7%] last:mr-0 bg-primary">

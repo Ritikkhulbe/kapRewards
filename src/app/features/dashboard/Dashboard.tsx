@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import GenericLayout, {
   GenericLayoutButton,
   GenericLayoutDescription,
@@ -6,18 +7,38 @@ import GenericLayout, {
 } from "@/app/genericComponents/GenericLayout";
 import withReducer from "@/app/utils/withReducer";
 import dashboardSlice from "./store/slice/dashboardSlice";
-import { useEffect } from "react";
 import { useAppDispatch } from "@/store/hooks";
 import { exampleAction } from "./store/actions/exampleAction";
 import DashboardHeader from "./components/DashboardHeader";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
+  
+  // State for storing API data
+  const [name, setName] = useState<string>("");
+  const [reward, setReward] = useState<number>(0);
 
+  // Fetch data when the component mounts
   useEffect(() => {
     console.log("Dashboard component mounted");
     dispatch(exampleAction("Hello World"));
-  }, []);
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://run.mocky.io/v3/28886a1b-2e3c-4314-8b76-08627a3d750a"
+        );
+        const data = await response.json();
+        // Extract name and reward from the API response
+        setName(data.agent_name);
+        setReward(data.reward_point);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]); // Empty dependency array ensures it runs only once
 
   return (
     <GenericLayout>
@@ -30,9 +51,13 @@ const Dashboard = () => {
       <GenericLayoutButton>
         <div className="flex items-center gap-2">
           <div className="px-5 py-2 rounded-[20px] bg-blue-500">
-            5 Reward Points
+            {/* Dynamically displaying reward points */}
+            {reward} Reward Points
           </div>
-          <div className="px-5 py-2 rounded-[20px] bg-fourth">Ritik</div>
+          <div className="px-5 py-2 rounded-[20px] bg-fourth">
+            {/* Dynamically displaying user name */}
+            {name}
+          </div>
         </div>
       </GenericLayoutButton>
       <DashboardHeader />
