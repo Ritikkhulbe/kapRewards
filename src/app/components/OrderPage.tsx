@@ -10,8 +10,6 @@ interface Product {
   name: string;
   points: number;
   image: string;
-  rating: number;
-  description: string;
 }
 
 const OrderPage = () => {
@@ -19,6 +17,7 @@ const OrderPage = () => {
   const { state } = location;
   const selectedProduct = state as Product;
 
+  const sampleProducts: Product[] = [
   const sampleProducts: Product[] = [
     {
       name: "Wireless Headphones",
@@ -250,6 +249,8 @@ const OrderPage = () => {
           >
             Place Order
           </button>
+        </div>
+      </div>
         </div>
       </div>
     </div>
