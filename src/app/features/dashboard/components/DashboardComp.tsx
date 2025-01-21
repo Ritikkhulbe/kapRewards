@@ -33,7 +33,9 @@ const DashboardComp = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(API_URL_GET);
+        const response = await fetch(API_URL_GET, {
+          method: "POST",
+        });
         const data: ApiResponse = await response.json();
 
         setRewardPoint(data.reward_point);
