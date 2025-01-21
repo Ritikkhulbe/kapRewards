@@ -18,6 +18,7 @@ const generateUniqueCode = (): string => {
 const GiftCardPage = () => {
   const [voucherCode, setVoucherCode] = useState<string | null>(null);
   const [points, setPoints] = useState<number>(1500);
+  const [value, setValues] = useState<number>(0);
   // Gift Card Options
   const giftCards = [
     { value: 100, label: "Gift Card $100", image: giftRewardsImage },
@@ -30,7 +31,22 @@ const GiftCardPage = () => {
     const uniqueCode = generateUniqueCode();
     // Generate unique code
     setPoints(points - value); // Deduct points from the user's total
-    setVoucherCode(uniqueCode); // Set the voucher code to display in the modal
+    setVoucherCode(uniqueCode);
+    setValues(value); // Set the voucher code to display in the modal
+  };
+
+  const handleEmail = () => {
+    const subject = `Order Request for Gift Card`;
+    const body =
+      `Dear Finance Team,\n\n` +
+      `I would like to place an order for the following product:\n\n` +
+      `Product: Gift Card\n` +
+      `Points Redeemed: ${value}\n` +
+      `Voucher Code: ${voucherCode}\n\n` +
+      `Please let me know if any further details are needed.\n\nThank you!`;
+    window.location.href = `mailto:finance@company.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -87,6 +103,12 @@ const GiftCardPage = () => {
               className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
             >
               Close
+            </button>
+            <button
+              onClick={handleEmail}
+              className="mt-6 ml-5 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
+            >
+              Send Code
             </button>
           </div>
         </div>
