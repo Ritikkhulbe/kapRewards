@@ -15,9 +15,7 @@ const RewardsPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(API_URL_GET, {
-        method: "POST",
-      });
+      const response = await fetch(API_URL_GET);
 
       const data = await response.json();
 
